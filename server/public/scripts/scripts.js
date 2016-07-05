@@ -65,7 +65,6 @@ myApp.controller('playersController', ['$scope', '$http', function($scope, $http
   $scope.levelNum = ['1', '2', '3', '4', '5', '6'];
 
   $scope.displayPlayers = function(){
-    console.log('in getPlayers');
     $http({
       method: 'GET',
       url: '/getPlayers', }).then(function(response){
@@ -81,7 +80,6 @@ myApp.controller('playersController', ['$scope', '$http', function($scope, $http
       class: $scope.classInput,
       level: $scope.levelInput,
     }; // end object
-    console.log(playerInfo);
     $http({
       method: 'POST',
       url: '/playerAdd',
@@ -90,7 +88,7 @@ myApp.controller('playersController', ['$scope', '$http', function($scope, $http
     $scope.nameInput = '';
     $scope.classInput = '';
     $scope.levelInput = '';
-    // $scope.displayPlayers();
+    $scope.displayPlayers();
   }; // end addPlayer function
 
   $scope.deletePlayer = function(index){

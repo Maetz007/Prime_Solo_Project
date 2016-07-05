@@ -12,8 +12,9 @@
     </div> <!-- end inputPlayer div -->
 
     <button id="addPlayerBtn" ng-click="addPlayer()"> Add Player </button><br><br>
-    <button id="getPlayersBtn" ng-click="displayPlayers()"> Display Players </button>
+    <button id="getPlayersBtn" ng-click="displayPlayers()"> Display Players </button><br>
 
     <div ng-repeat="players in playersArray">
-      <li> NAME: {{players.name}} CLASS: {{players.class}} LEVEL: {{players.level}}</li>
+      <li> NAME: {{players.name}} CLASS: {{players.class}} LEVEL: {{players.level}}
+        <button id="deleteBtn" ng-click="deletePlayer($index)">DELETE</button></li>
     </div>

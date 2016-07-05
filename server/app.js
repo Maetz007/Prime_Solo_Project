@@ -10,30 +10,18 @@ app.listen(process.env.PORT || 9002, function(){ console.log("IT'S OVER 9000!!!"
 
 app.use(express.static('server/public'));
 
-app.get('/*', function(req,res){
-  console.log('You Are in L');
-  var file = req.params[0] || 'views/index.html';
-  res.sendFile(path.join(__dirname, '/public/', file));
-}); // end app.get base URL
-
 var mongodbUri = 'mongodb://tarrasquebeast:poopoo12@ds021994.mlab.com:21994/amtgard_eventum';
 mongoose.connect(mongodbUri);
 
 app.use(bodyParser.json());
 
-app.get( '/getPlayers', function(req, res){
-  Player.find({}, function(err, playersList) {
-    if(err){
-      console.log(err);
-      res.sendStatus(500);
-    }else {
-      res.send(playersList);
-    } // end else
+app.get('/getPlayers', function(req, res){
+  Player.find().then(function(data){
+  res.send(data);
   }); // end Player.find
 }); //end getPlayers
 
 app.post('/playerAdd', function(req, res) {
-  console.log('in playerAdd route');
   var newPlayer = new Player({
     name: req.body.name,
     class: req.body.class,
@@ -44,8 +32,28 @@ app.post('/playerAdd', function(req, res) {
       console.log(err);
       res.sendStatus(500);
     }else {
-      console.log('player saved successfully to database');
+      console.log('player has been added to database');
       res.sendStatus(200);
     } // end else
   }); // end newPlayer.save
 });//end "addPlayer" route
+
+app.post('/playerRemove', function(req, res){
+  var playerId = req.body.id;
+  Player.findOne({_id: playerId}, function(err, Player) {
+    if(err){
+      console.log(err);
+      res.sendStatus(500);
+    } else {
+      Player.remove({_id: playerId}, function(err) {});
+      console.log('Player has been removed');
+      res.sendStatus(200);
+    } // end else
+  }); // Player.findOne
+});// end post playerRemove
+
+app.get('/*', function(req,res){
+  console.log('You Are in L');
+  var file = req.params[0] || 'views/index.html';
+  res.sendFile(path.join(__dirname, '/public/', file));
+}); // end app.get base URL
