@@ -8,6 +8,12 @@
       </select><br>
       <select ng-model="levelInput" ng-options="levels for levels in levelNum">
         <option value=''> -- Level -- </option>
+      </select><br>
+      <select ng-model="armorInput" ng-options="armor for armor in armorNum">
+        <option value=''> -- Armor -- </option>
+      </select><br>
+      <select ng-model="shieldInput" ng-options="shield for shield in shieldCheck">
+        <option value=''> -- Shield -- </option>
       </select><br><br>
     </div> <!-- end inputPlayer div -->
 
@@ -16,5 +22,11 @@
 
     <div ng-repeat="players in playersArray">
       <li> NAME: {{players.name}} CLASS: {{players.class}} LEVEL: {{players.level}}
+          ARMOR: {{players.armor}} SHIELD: {{players.shield}} 
         <button id="deleteBtn" ng-click="deletePlayer($index)">DELETE</button></li>
-    </div>
+    </div> <!-- end ng-repeat -->
+
+
+
+
+</div> <!-- end playersController div -->
