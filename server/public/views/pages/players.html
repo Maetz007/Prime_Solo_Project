@@ -1,0 +1,19 @@
+<div class="container-fluid" ng-controller="playersController">
+  <h3>Player Input Page</h3>
+
+    <div id="inputPlayerDiv">
+      <input type="text" id="nameIn" ng-model="nameInput" placeholder=" -- Name -- "><br>
+      <select ng-model="classInput" ng-options="class for class in classTypes">
+        <option value=''> -- Class -- </option>
+      </select><br>
+      <select ng-model="levelInput" ng-options="levels for levels in levelNum">
+        <option value=''> -- Level -- </option>
+      </select><br><br>
+    </div> <!-- end inputPlayer div -->
+
+    <button id="addPlayerBtn" ng-click="addPlayer()"> Add Player </button><br><br>
+    <button id="getPlayersBtn" ng-click="displayPlayers()"> Display Players </button>
+
+    <div ng-repeat="players in playersArray">
+      <li> NAME: {{players.name}} CLASS: {{players.class}} LEVEL: {{players.level}}</li>
+    </div>

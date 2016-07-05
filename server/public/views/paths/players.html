@@ -1,0 +1,10 @@
+<div class="container-fluid" ng-controller="playersController">
+  <h3>Player Input Page</h3>
+
+    <div id="inputPlayerDiv">
+      <input type="text" id="nameIn" ng-model="nameInput" placeholder=" -- Name -- "><br>
+      <input type="text" id="classIn" ng-model="classInput" placeholder=" -- Class -- "><br>
+      <input type="text" id="levelIn" ng-model="levelInput" placeholder=" -- Level -- "><br>
+    </div><br> <!-- end inputPlayer div -->
+
+    <button id="addPlayerBtn" ng-click="addPlayer()">Add Player</button>
