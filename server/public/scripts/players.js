@@ -1,4 +1,5 @@
-angular.module('myApp').controller('playersController', ['$scope', '$http', '$uibModal', '$rootScope',
+angular.module('myApp')
+.controller('playersController',['$scope', '$http', '$uibModal', '$rootScope',
 function($scope, $http, $uibModal, $rootScope){
 
   $rootScope.playersArray = [];
@@ -69,7 +70,6 @@ function($scope, $http, $uibModal, $rootScope){
   }; // end addPlayer function
 
   $scope.deletePlayer = function(index){
-    console.log($rootScope.playersArray[index]._id);
     var playerId = {
       id: $rootScope.playersArray[index]._id
     }; // end playerId
@@ -104,27 +104,27 @@ function($scope, $http, $uibModal, $rootScope){
       shield: $scope.shieldUpdate
     }; // end updateInfo
 
-    if(updateInfo.name === undefined || ''){
+    if(updateInfo.name === '' || undefined){
       updateInfo.name = $rootScope.playersArray[id].name;
     }
-    if(updateInfo.class === undefined || ''){
+    if(updateInfo.class === '' || undefined){
       updateInfo.class = $rootScope.playersArray[id].class;
     }
-    if(updateInfo.level === undefined || '' || null){
+    if(updateInfo.level === '' || undefined){
       updateInfo.level = $rootScope.playersArray[id].level;
     }
-    if(updateInfo.armor === undefined || ''){
+    if(updateInfo.armor === '' || undefined){
       updateInfo.armor = $rootScope.playersArray[id].armor;
     }
-    if(updateInfo.shield === undefined || ''){
+    if(updateInfo.shield === '' || undefined){
       updateInfo.shield = $rootScope.playersArray[id].shield;
     }
-
       $http({
         method: 'POST',
         url: '/playerUpdate',
         data: updateInfo
       }); // end http
+    $rootScope.cancel();
   }; // end updatePlayer
 
   $scope.randomPlayer = function(){
@@ -153,8 +153,7 @@ function($scope, $http, $uibModal, $rootScope){
     $scope.shieldInput = '';
 
     $scope.displayPlayers();
-  }; // end addPlayer function
-
+  }; // end randomPlayer function
 }]); // end controller 'playersController'
 
 //-----------------------------------------  uodateController -----------------------------------------
@@ -169,7 +168,7 @@ angular.module('myApp').controller('updateController',
   $scope.armorUpdate = $rootScope.playersArray[playerId].armor;
   $scope.shieldUpdate = $rootScope.playersArray[playerId].shield;
 
-  $scope.cancel = function(){
+  $rootScope.cancel = function(){
     $uibModalInstance.close();
   }; // end cancel
 }); // end updateController

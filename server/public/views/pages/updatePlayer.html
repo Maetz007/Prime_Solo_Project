@@ -15,16 +15,14 @@
       <select ng-model="armorUpdate" ng-options="armor for armor in armorNum">
         <option value=''> {{playersArray[id].armor}} </option>
       </select><br>
-      <select ng-model="shieldUpdate" ng-options="shield.value as shield.label for shield in shieldCheck">
+      <select ng-model="shieldUpdate" ng-options="shield for shield in shieldCheck">
         <option value=''> {{playersArray[id].shield}} </option>
       </select><br>
     </div> <!-- end updatePlayer div -->
   </div> <!-- end modal-body -->
 
   <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="updatePlayer(id)">Update Player</button>
-    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    <button class="updateBtn btn-primary btn-sm" type="button" ng-click="updatePlayer(id)">Update Player</button>
+    <button class="cancelUpdateBtn btn-warning" type="button" ng-click="cancel()">Cancel</button>
   </div> <!-- end modal-footer -->
-</div>
-
-<!-- placeholder=" {{playersArray[id].name}}  -->
+</div> <!-- end playersController -->

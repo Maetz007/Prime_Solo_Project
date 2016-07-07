@@ -45,7 +45,18 @@ route.post('/playerRemove', function(req, res){
 });// end post playerRemove
 
 route.post('/playerUpdate', function(req, res){
-  console.log('hit /playerUpdate');
+    var playerId = req.body.id;
+    Player.findOne({_id: playerId}, function(err, Player) {
+      if(err){
+        console.log(err);
+        res.sendStatus(500);
+      } else {
+        Player.update({name: req.body.name},{class: req.body.class},{level: req.body.level},
+          {armor: req.body.armor},{shield: req.body.shield}, function(err) {});
+          console.log('Player has been updated');
+        res.sendStatus(200);
+      } // end else
+    }); // Player.findOne
 }); // end put playerUpdate
 
 module.exports = route;

@@ -2,7 +2,7 @@ var myApp = angular.module('myApp', ['ngRoute', 'ui.bootstrap']);
 
 myApp.config(['$routeProvider', function($routeProvider){
   $routeProvider.
-      when('/', {
+      when('/main', {
           templateUrl: '/views/pages/main.html',
           controller: 'mainController'
       }).
