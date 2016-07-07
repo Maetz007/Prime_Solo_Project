@@ -44,7 +44,7 @@ function($scope, $http, $uibModal, $rootScope){
         playerInfo.name = 'Player#' + $scope.randomNum(1000000, 1000);
     }
     if(playerInfo.class === '' || undefined || 0){
-      playerInfo.class = 'Peasants';
+      playerInfo.class = 'Peasant';
     }
     if(playerInfo.level === '' || undefined || null || 0){
       playerInfo.level = 1;
@@ -123,12 +123,13 @@ function($scope, $http, $uibModal, $rootScope){
         method: 'POST',
         url: '/playerUpdate',
         data: updateInfo
-      }); // end http
+      }).then(function(response){console.log("in response", response);}); // end http
     $rootScope.cancel();
+    $scope.displayPlayers();
   }; // end updatePlayer
 
   $scope.randomPlayer = function(){
-    $scope.randomValue = Math.random() < 0.5 ? 0 : 1;
+    $scope.randomValue = Math.random() <= 0.5 ? 0 : 1;
     var playerInfo = {
       name: $scope.nameInput,
       class: $scope.classInput,
