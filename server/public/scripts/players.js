@@ -123,9 +123,12 @@ function($scope, $http, $uibModal, $rootScope){
         method: 'POST',
         url: '/playerUpdate',
         data: updateInfo
-      }).then(function(response){console.log("in response", response);}); // end http
+      }).then(function(response){
+        console.log("in response", response);
+        $scope.displayPlayers();
+        } // end then
+      ); // end http
     $rootScope.cancel();
-    $scope.displayPlayers();
   }; // end updatePlayer
 
   $scope.randomPlayer = function(){

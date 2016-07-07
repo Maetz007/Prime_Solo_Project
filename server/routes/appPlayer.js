@@ -52,8 +52,8 @@ route.post('/playerUpdate', function(req, res){
         console.log(err);
         res.sendStatus(500);
       } else {
-        Player.update( {name: req.body.name}, {class: req.body.class}, {level: req.body.level},
-          {armor: req.body.armor}, {shield: req.body.shield}, function(err){ console.log( 'in err' ); });
+        Player.update({name: req.body.name, class: req.body.class, level: req.body.level,
+          armor: req.body.armor, shield: req.body.shield}, function(err) {});
           console.log('Player has been updated');
         res.send(true);
       } // end else
