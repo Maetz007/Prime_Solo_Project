@@ -3,14 +3,23 @@ function($scope, $http, $uibModal, $rootScope){
 
   $rootScope.playersArray = [];
 
-  $scope.classTypes = ['Anti-Paladin', 'Archer', 'Assassin', 'Barbarian', 'Bard',
-    'Druid', 'Healer', 'Monk', 'Paladin', 'Scout', 'Warrior', 'Wizard'];
+  $scope.nameInput = '';
+  $scope.classInput = '';
+  $scope.levelInput = '';
+  $scope.armorInput = '';
+  $scope.shieldInput = '';
+
+  $scope.classTypes = ['Archer', 'Assassin', 'Barbarian', 'Bard',
+    'Druid', 'Healer', 'Monk', 'Scout', 'Warrior', 'Wizard', 'Anti-Paladin', 'Paladin'];
   $scope.levelNum = ['1', '2', '3', '4', '5', '6'];
   $scope.armorNum = ['0%', '20%', '40%', '60%', '80%', '100%'];
-  $scope.shieldCheck = [
-    {value: true, label: 'True'},
-    {value: false, label: 'False'}
-  ]; // end sheildCheck array
+  $scope.shieldCheck = ['Yes', 'No'];
+    // {value: true, label: 'True'},
+    // {value: false, label: 'False'}
+
+  $scope.randomNum = function (max, min) {
+    return Math.floor(Math.random() * (max- min + 1)) + min;
+  };
 
   $scope.displayPlayers = function(){
     $http({
@@ -30,23 +39,20 @@ function($scope, $http, $uibModal, $rootScope){
       armor: $scope.armorInput,
       shield: $scope.shieldInput
     }; // end object
-    function randomNum() {
-      return Math.floor(Math.random() * (1000000- 1000 + 1)) + 1000;
+    if(playerInfo.name === '' || undefined || 0){
+        playerInfo.name = 'Player#' + $scope.randomNum(1000000, 1000);
     }
-    if(playerInfo.name === '' || undefined){
-        playerInfo.name = 'Player#' + randomNum();
-    }
-    if(playerInfo.class === '' || undefined){
+    if(playerInfo.class === '' || undefined || 0){
       playerInfo.class = 'Peasants';
     }
-    if(playerInfo.level === '' || undefined){
+    if(playerInfo.level === '' || undefined || null || 0){
       playerInfo.level = 1;
     }
-    if(playerInfo.armor === '' || undefined){
+    if(playerInfo.armor === '' || undefined || 0){
       playerInfo.armor = '0%';
     }
-    if(playerInfo.shield === '' || undefined){
-      playerInfo.shield = false;
+    if(playerInfo.shield === '' || undefined || 0){
+      playerInfo.shield = 'No';
     }
     $http({
       method: 'POST',
@@ -98,28 +104,21 @@ function($scope, $http, $uibModal, $rootScope){
       shield: $scope.shieldUpdate
     }; // end updateInfo
 
-    if(updateInfo.name === undefined || '' || null){
+    if(updateInfo.name === undefined || ''){
       updateInfo.name = $rootScope.playersArray[id].name;
     }
-    if(updateInfo.class === undefined || '' || null){
+    if(updateInfo.class === undefined || ''){
       updateInfo.class = $rootScope.playersArray[id].class;
     }
-    if(updateInfo.level){
+    if(updateInfo.level === undefined || '' || null){
       updateInfo.level = $rootScope.playersArray[id].level;
     }
-    if(updateInfo.armor){
+    if(updateInfo.armor === undefined || ''){
       updateInfo.armor = $rootScope.playersArray[id].armor;
     }
-    if(updateInfo.shield === undefined || '' || null){
+    if(updateInfo.shield === undefined || ''){
       updateInfo.shield = $rootScope.playersArray[id].shield;
     }
-
-    console.log("---------<><><><><>----------");
-    console.log(updateInfo.name);
-    console.log(updateInfo.class);
-    console.log(updateInfo.level);
-    console.log(updateInfo.armor);
-    console.log(updateInfo.shield);
 
       $http({
         method: 'POST',
@@ -128,6 +127,33 @@ function($scope, $http, $uibModal, $rootScope){
       }); // end http
   }; // end updatePlayer
 
+  $scope.randomPlayer = function(){
+    $scope.randomValue = Math.random() < 0.5 ? 0 : 1;
+    var playerInfo = {
+      name: $scope.nameInput,
+      class: $scope.classInput,
+      level: $scope.levelInput,
+      armor: $scope.armorInput,
+      shield: $scope.shieldInput
+    }; // end object
+    playerInfo.name = 'player#' + $scope.randomNum(1000000, 1000);
+    playerInfo.class = $scope.classTypes[$scope.randomNum(9,0)];
+    playerInfo.level = $scope.randomNum(6,1);
+    playerInfo.armor = $scope.armorNum[$scope.randomNum(5,0)];
+    playerInfo.shield = $scope.shieldCheck[$scope.randomValue];
+    $http({
+      method: 'POST',
+      url: '/playerAdd',
+      data: playerInfo
+    }); // end POST
+    $scope.nameInput = '';
+    $scope.classInput = '';
+    $scope.levelInput = '';
+    $scope.armorInput = '';
+    $scope.shieldInput = '';
+
+    $scope.displayPlayers();
+  }; // end addPlayer function
 
 }]); // end controller 'playersController'
 

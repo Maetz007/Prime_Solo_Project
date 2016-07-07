@@ -6,7 +6,7 @@ var playerSchema = new Schema({
   class: String,
   level: Number,
   armor: String,
-  shield: Boolean
+  shield: String
 });
 
 var Player = mongoose.model('Player', playerSchema);

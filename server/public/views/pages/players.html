@@ -12,13 +12,14 @@
       <select ng-model="armorInput" ng-options="armor for armor in armorNum">
         <option value=''> -- Armor -- </option>
       </select><br>
-      <select ng-model="shieldInput" ng-options="shield.value as shield.label for shield in shieldCheck">
+      <select ng-model="shieldInput" ng-options="shield for shield in shieldCheck">
         <option value=''> -- Shield -- </option>
       </select><br><br>
     </div> <!-- end inputPlayer div -->
 
-    <button id="addPlayerBtn" ng-click="addPlayer()"> Add Player </button><br><br>
-    <button id="getPlayersBtn" ng-click="displayPlayers()"> Display Players </button><br><br>
+    <button id="addPlayerBtn" ng-click="addPlayer()"> Add Player </button>
+    <button id="getPlayersBtn" ng-click="displayPlayers()"> Display Players </button>
+    <button id="randomPlayerBtn" ng-click="randomPlayer()"> Random Player </button><br><br>
 
     <div ng-repeat="players in playersArray">
       <li>
