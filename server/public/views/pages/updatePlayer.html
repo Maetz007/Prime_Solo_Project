@@ -1,0 +1,30 @@
+<div ng-controller="playersController">
+  <div class="modal-header">
+    <h3 class="modal-title">Update Player Info</h3>
+  </div> <!-- end modal-header -->
+
+  <div class="modal-body">
+    <div id="updatePlayerDiv">
+      <input type="text" id="nameUpdate" ng-model="nameUpdate"><br>
+      <select ng-model="classUpdate" ng-options="class for class in classTypes">
+        <option value=''> {{playersArray[id].class}} </option>
+      </select><br>
+      <select ng-model="levelUpdate" ng-options="levels for levels in levelNum">
+        <option value=''> {{playersArray[id].level}} </option>
+      </select><br>
+      <select ng-model="armorUpdate" ng-options="armor for armor in armorNum">
+        <option value=''> {{playersArray[id].armor}} </option>
+      </select><br>
+      <select ng-model="shieldUpdate" ng-options="shield.value as shield.label for shield in shieldCheck">
+        <option value=''> {{playersArray[id].shield}} </option>
+      </select><br>
+    </div> <!-- end updatePlayer div -->
+  </div> <!-- end modal-body -->
+
+  <div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="updatePlayer(id)">Update Player</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+  </div> <!-- end modal-footer -->
+</div>
+
+<!-- placeholder=" {{playersArray[id].name}}  -->

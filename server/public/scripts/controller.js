@@ -2,13 +2,17 @@ var myApp = angular.module('myApp', ['ngRoute', 'ui.bootstrap']);
 
 myApp.config(['$routeProvider', function($routeProvider){
   $routeProvider.
-      when('/main', {
+      when('/', {
           templateUrl: '/views/pages/main.html',
           controller: 'mainController'
       }).
+      when('/login', {
+          templateUrl: '/views/pages/login.html',
+          controller: 'loginController'
+      }).
       when('/players', {
           templateUrl: '/views/pages/players.html',
-          controller: 'playersController'
+          // controller: 'playersController'    <--- removed due to being loaded twice
       }).
       when('/events', {
           templateUrl: '/views/pages/events.html',

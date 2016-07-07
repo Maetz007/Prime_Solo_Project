@@ -8,6 +8,7 @@ var Player = require('./models/player.js');
 
 var adminRoute = require('./routes/appAdmin');
 var eventsRoute = require('./routes/appEvents');
+var loginRoute = require('./routes/appLogin');
 var mainRoute = require('./routes/appMain');
 var playerRoute = require('./routes/appPlayer');
 var roundRobinRoute = require('./routes/appRoundRobin');
@@ -23,6 +24,7 @@ app.use(bodyParser.json());
 
 app.use('/', adminRoute);
 app.use('/', eventsRoute);
+app.use('/', loginRoute);
 app.use('/', mainRoute);
 app.use('/', playerRoute);
 app.use('/', roundRobinRoute);

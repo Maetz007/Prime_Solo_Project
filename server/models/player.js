@@ -4,9 +4,9 @@ var Schema = mongoose.Schema;
 var playerSchema = new Schema({
   name: String,
   class: String,
-  level: String,
+  level: Number,
   armor: String,
-  shield: String
+  shield: Boolean
 });
 
 var Player = mongoose.model('Player', playerSchema);

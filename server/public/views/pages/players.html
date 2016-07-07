@@ -12,21 +12,25 @@
       <select ng-model="armorInput" ng-options="armor for armor in armorNum">
         <option value=''> -- Armor -- </option>
       </select><br>
-      <select ng-model="shieldInput" ng-options="shield for shield in shieldCheck">
+      <select ng-model="shieldInput" ng-options="shield.value as shield.label for shield in shieldCheck">
         <option value=''> -- Shield -- </option>
       </select><br><br>
     </div> <!-- end inputPlayer div -->
 
     <button id="addPlayerBtn" ng-click="addPlayer()"> Add Player </button><br><br>
-    <button id="getPlayersBtn" ng-click="displayPlayers()"> Display Players </button><br>
+    <button id="getPlayersBtn" ng-click="displayPlayers()"> Display Players </button><br><br>
 
     <div ng-repeat="players in playersArray">
-      <li> NAME: {{players.name}} CLASS: {{players.class}} LEVEL: {{players.level}}
-          ARMOR: {{players.armor}} SHIELD: {{players.shield}} 
-        <button id="deleteBtn" ng-click="deletePlayer($index)">DELETE</button></li>
+      <li>
+        NAME: {{players.name}}
+        CLASS: {{players.class}}
+        LEVEL: {{players.level}}
+        ARMOR: {{players.armor}}
+        SHIELD: {{players.shield}}
+        <button id="deleteBtn" ng-click="deletePlayer($index)">DELETE</button>
+        <button id="updatePlayerBtn" ng-click="openUpdate($index)"> UPDATE </button><br><br>
+      </li>
     </div> <!-- end ng-repeat -->
 
 
-
-
-</div> <!-- end playersController div -->
+</div> <!-- end playersController div

@@ -44,4 +44,8 @@ route.post('/playerRemove', function(req, res){
   }); // Player.findOne
 });// end post playerRemove
 
+route.post('/playerUpdate', function(req, res){
+  console.log('hit /playerUpdate');
+}); // end put playerUpdate
+
 module.exports = route;
