@@ -1,27 +1,18 @@
 var express = require('express');
+var router = express.Router();
+var passport = require('passport');
+var Users = require('../models/user');
 var path = require('path');
-var route = express.Router();
-// var encryptLib = require('../modules/encryption');
-var User = require('../models/user');
 
-route.post('/registerUser', function(req, res) {
+router.post('/registerUser', function(req, res, next) {
+    Users.create(req.body, function(err, post) {
+         if(err) {
+            next(err);
+         } else {
+            res.redirect('/');
+         } // end else
+    }); // end Users.create
+  console.log('New user registered');
+}); // end /registerUser
 
-  var newUser = new User({
-    username: req.body.username,
-    password: req.body.password  // encryptLib.encryptPassword(req.body.password)
-  }); // end newPlayer object
-
-  newUser.save(function(err) {
-    if(err){
-      // console.log(err);
-      console.log("username already exists");
-      res.sendStatus(500);
-    }else {
-      console.log('user has been created');
-      res.redirect('/');
-    } // end else
-  }); // end newUser.save
-
-}); // end registerUser
-
-module.exports = route;
+module.exports = router;
