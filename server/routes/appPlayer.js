@@ -38,14 +38,13 @@ route.post('/playerRemove', function(req, res){
       res.sendStatus(500);
     } else {
       Player.remove({_id: playerId}, function(err) {});
-      console.log('Player has been removed');
+      console.log('Removed player');
       res.sendStatus(200);
     } // end else
   }); // Player.findOne
 });// end post playerRemove
 
 route.post('/playerUpdate', function(req, res){
-  console.log("playerupdate hit");
     var playerId = req.body.id;
     Player.findOne({_id: playerId}, function(err, Player) {
       if(err){

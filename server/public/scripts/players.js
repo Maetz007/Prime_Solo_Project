@@ -124,7 +124,6 @@ function($scope, $http, $uibModal, $rootScope){
         url: '/playerUpdate',
         data: updateInfo
       }).then(function(response){
-        console.log("in response", response);
         $scope.displayPlayers();
         } // end then
       ); // end http

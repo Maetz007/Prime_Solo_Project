@@ -1,9 +1,15 @@
 <div class="container-fluid" ng-controller="loginController">
-  <div id="headerLogin" class="">
+  <div id="headerLogin">
     <h3>LOGIN PAGE</h3>
-    <input type="userName" ng-model="userName" id="userName" placeholder=" -- User Name -- "><br>
-    <input type="password" ng-model="userPassword" id="password" placeholder=" -- Password -- "><br>
-    <button id="loginBtn" ng-click="userLogin()"> LOGIN </button><br><br>
-    <button id="registerBtn" ng-click="registerUser()"> Register </button>
+    <form action="/userLogin" method="post">
+
+      <div>
+        <input type="text" name="username" id="username" placeholder=" -- User Name -- "><br>
+        <input type="password" name="password" id="password" placeholder=" -- Password -- "><br><br>
+        <input type="submit" value=" Login "><br><br>
+        <a href="#register">Register</a>
+      </div>
+
+    </form>
   </div> <!-- end headerLogin div -->
-</div> <!-- end indexPage controller div -->
+</div> <!-- end loginController -->

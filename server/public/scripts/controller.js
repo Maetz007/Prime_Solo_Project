@@ -8,7 +8,9 @@ myApp.config(['$routeProvider', function($routeProvider){
       }).
       when('/login', {
           templateUrl: '/views/pages/login.html',
-          controller: 'loginController'
+      }).
+      when('/register', {
+          templateUrl: '/views/pages/register.html',
       }).
       when('/players', {
           templateUrl: '/views/pages/players.html',
@@ -27,6 +29,6 @@ myApp.config(['$routeProvider', function($routeProvider){
           controller: 'adminController'
       }).
       otherwise({
-      redirectTo: '/main'
+      redirectTo: '/login'
       });
 }]); // end $routeProvider
