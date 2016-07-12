@@ -3,7 +3,7 @@ function($scope, $http, $rootScope, playerData) {
 
   playerData.loadPlayers();
 
-  $scope.showRounds = function(){
+  $scope.getByePlayer = function(){
     if ($rootScope.playersArray.length % 2 !== 0) {
       var byeInfo = {
         name: 'BYE',
@@ -12,7 +12,6 @@ function($scope, $http, $rootScope, playerData) {
         armor: '0%',
         shield: 'No'
       }; // end object
-
       $http({
           method: 'POST',
           url: '/playerAdd',
@@ -21,7 +20,12 @@ function($scope, $http, $rootScope, playerData) {
         playerData.loadPlayers();
       }); // end .then
     } // end if
+  }; // end showrounds
 
+  $scope.roundRobin = function(){
+  if ($rootScope.playersArray.length % 2 !== 0){
+    window.alert('Round Robin Tournaments must \nhave an even number of players. \nPlease use the "Add BYE Player" button.');
+  } else {
     var newRound = angular.element(document.querySelector('#main'));
     var halfLength = ($rootScope.playersArray.length / 2);
     var tempArray = $rootScope.playersArray;
@@ -51,7 +55,7 @@ function($scope, $http, $rootScope, playerData) {
         arrayTwo.shift();
         round++;
       } // end for loop #2
-  }; // end showRounds
-
+    } // end else
+  }; // end roundRobin
 
 }]); // end controller 'roundRobinController'
