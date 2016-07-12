@@ -28,18 +28,13 @@ myApp.config(['$routeProvider', function($routeProvider){
       });
 }]); // end $routeProvider
 
+
+//-----------------------------------------  playerData factory-----------------------------------------
+
 myApp.factory('playerData', ['$http', '$rootScope', function($http, $rootScope){
 
-  var stuff = {
-    moarStuff:'I am stuff',
-    click: 1
-  };
-
-  var doingStuff = function(){
-    stuff.click++;
-    console.log('stuff.click = ' + stuff.click);
-  };
-
+  $rootScope.tournamentName = '';
+  $rootScope.tournament = [];
   $rootScope.playersArray = [];
 
   var getPlayers = function(){
@@ -51,8 +46,6 @@ myApp.factory('playerData', ['$http', '$rootScope', function($http, $rootScope){
   }; // end showPlayers
 
   return {
-    thing: stuff,
-    punch: doingStuff,
     loadPlayers: getPlayers
   };
 

@@ -2,14 +2,17 @@
 <div class="container-fluid" ng-controller="roundRobinController">
   <button id="getByePlayerBtn" ng-click="getByePlayer()"> Add BYE Player </button><br>
   <button id="roundRobinBtn" ng-click="roundRobin()"> Create New Tournament </button><br>
+  <button id="saveTournamentBtn" ng-click="saveTourney($index)"> Save Tournament </button><br>
 
   <h4>Players in tournament</h4>
-  <div id="robinPlayersDiv" ng-repeat="players in playersArray">
-    <li>
-       Player: {{players.name}}
-    </li>
-  </div><br><br>
 
-  <div id="main"> Tournament Rounds </div>
-
+  <div class="clearfix" ng-if="$index % 3 == 0"></div>
+    <div class="col-sm-4" id="repeatDiv">
+      <div id="robinPlayersDiv" ng-repeat="players in tournament">
+        <li>
+          Round {{players.roundNum}}: {{players.playerOne}} VS. {{players.playerTwo}}
+        </li>
+      </div><br><br>
+    </div>
+  </div>
 </div>
