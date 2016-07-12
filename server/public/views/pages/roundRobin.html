@@ -1,1 +1,14 @@
-<h3>round robin page</h3>
+<h3> Round robin page </h3>
+<div class="container-fluid" ng-controller="roundRobinController">
+  <button id="showBtn" ng-click="showRounds()"> Create New Tournament </button><br>
+
+  <h4>Players in tournament</h4>
+  <div id="robinPlayersDiv" ng-repeat="players in playersArray">
+    <li>
+       Player: {{players.name}}
+    </li>
+  </div><br><br>
+
+  <div id="main"> Tournament Rounds </div>
+
+</div>

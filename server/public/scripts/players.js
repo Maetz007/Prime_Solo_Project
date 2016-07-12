@@ -1,8 +1,8 @@
 angular.module('myApp')
-.controller('playersController',['$scope', '$http', '$uibModal', '$rootScope',
-function($scope, $http, $uibModal, $rootScope){
+.controller('playersController',['$scope', '$http', '$uibModal', '$rootScope', 'playerData',
+function($scope, $http, $uibModal, $rootScope, playerData){
 
-  $rootScope.playersArray = [];
+  playerData.loadPlayers();
 
   $scope.nameInput = '';
   $scope.classInput = '';
@@ -21,16 +21,6 @@ function($scope, $http, $uibModal, $rootScope){
   $scope.randomNum = function (max, min) {
     return Math.floor(Math.random() * (max- min + 1)) + min;
   };
-
-  $scope.displayPlayers = function(){
-    $http({
-      method: 'GET',
-      url: '/getPlayers', }).then(function(response){
-        $rootScope.playersArray = response.data;
-      }); // end http GET
-    }; // end displayPlayers function
-
-  $scope.displayPlayers();
 
   $scope.addPlayer = function(){
     var playerInfo = {
@@ -66,7 +56,7 @@ function($scope, $http, $uibModal, $rootScope){
     $scope.armorInput = '';
     $scope.shieldInput = '';
 
-    $scope.displayPlayers();
+    playerData.loadPlayers();
   }; // end addPlayer function
 
   $scope.deletePlayer = function(index){
@@ -124,7 +114,7 @@ function($scope, $http, $uibModal, $rootScope){
         url: '/playerUpdate',
         data: updateInfo
       }).then(function(response){
-        $scope.displayPlayers();
+        // playerData.loadPlayers();
         } // end then
       ); // end http
     $rootScope.cancel();
@@ -155,8 +145,9 @@ function($scope, $http, $uibModal, $rootScope){
     $scope.armorInput = '';
     $scope.shieldInput = '';
 
-    $scope.displayPlayers();
+    playerData.loadPlayers();
   }; // end randomPlayer function
+
 }]); // end controller 'playersController'
 
 //-----------------------------------------  uodateController -----------------------------------------

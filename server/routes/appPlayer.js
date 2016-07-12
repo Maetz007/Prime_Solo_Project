@@ -25,7 +25,7 @@ route.post('/playerAdd', function(req, res) {
       res.sendStatus(500);
     }else {
       console.log('player has been added to database');
-      res.sendStatus(200);
+      res.send(true);
     } // end else
   }); // end newPlayer.save
 });//end "addPlayer" route

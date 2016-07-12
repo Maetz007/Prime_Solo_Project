@@ -9,7 +9,7 @@ router.post('/registerUser', function(req, res, next) {
          if(err) {
             next(err);
          } else {
-            res.redirect('/');
+            res.redirect('/views/pages/main.html');
          } // end else
     }); // end Users.create
   console.log('New user registered');

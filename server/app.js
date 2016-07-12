@@ -37,13 +37,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/', loginRoute);
-app.use('/', registerRoute);
-app.use('/', adminRoute);
-app.use('/', eventsRoute);
-app.use('/', mainRoute);
-app.use('/', playerRoute);
-app.use('/', roundRobinRoute);
+app.use('/', loginRoute, registerRoute, adminRoute, eventsRoute, mainRoute, playerRoute, roundRobinRoute);
 
 app.get('/*', function(req,res){
   console.log('You Are in L');
