@@ -54,7 +54,7 @@ route.post('/playerUpdate', function(req, res){
         Player.update({name: req.body.name, class: req.body.class, level: req.body.level,
           armor: req.body.armor, shield: req.body.shield}, function(err) {});
           console.log('Player has been updated');
-        res.send(true);
+        res.sendStatus(200);
       } // end else
     }); // Player.findOne
 }); // end put playerUpdate

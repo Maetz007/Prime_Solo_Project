@@ -1,14 +1,16 @@
-angular.module('myApp').controller('roundRobinController', ['$scope', '$http', '$rootScope', '$uibModal', 'playerData',
+angular.module('myApp').controller('roundRobinController',
+['$scope', '$http', '$rootScope', '$uibModal', 'playerData',
 function($scope, $http, $rootScope, $uibModal, playerData) {
 
   playerData.loadPlayers();
+
+  $scope.resultCheck = ['3 - 0', '2 - 1', '1 - 2 ', '0 - 3'];
 
   function Match(roundNum, playerOne, playerTwo) {
     this.roundNum = roundNum;
     this.playerOne = playerOne;
     this.playerTwo = playerTwo;
   } // end Match
-
 
   $scope.getByePlayer = function(){
     if ($rootScope.playersArray.length % 2 !== 0) {
@@ -34,7 +36,6 @@ function($scope, $http, $rootScope, $uibModal, playerData) {
     window.alert('Round Robin Tournaments must \nhave an even number of players. \nPlease use the "Add BYE Player" button.');
   } else {
     $scope.geteTournamentName();
-    // var newRound = angular.element(document.querySelector('#main'));
     var halfLength = ($rootScope.playersArray.length / 2);
     var tempArray = $rootScope.playersArray;
     var arrayOne = [];
@@ -53,7 +54,7 @@ function($scope, $http, $rootScope, $uibModal, playerData) {
 
     for (var y = 0; y < ($rootScope.playersArray.length - 1); y++) { // for loop #2
       for (var x = 0; x < halfLength; x++) { // for loop #3
-        // newRound.append('<div id="round"> Round ' + round + ': ' + arrayOne[x] + ' vs. ' + arrayTwo[x] + '</div>');
+        var clickable = true;
         var match = new Match(round, arrayOne[x], arrayTwo[x]);
         $rootScope.tournament.push(match);
       } // end for loop #3
@@ -75,7 +76,7 @@ function($scope, $http, $rootScope, $uibModal, playerData) {
     }); // end $modal.open
   }; // end openUpdate
 
-  $scope.saveTourney = function(index){
+  $scope.saveTourneyPopup = function(index){
     $uibModal.open({
       templateUrl: 'views/pages/tournamentModal.html',
       controller: 'tournamentController',
@@ -87,7 +88,7 @@ function($scope, $http, $rootScope, $uibModal, playerData) {
     $rootScope.cancel();
   }; // end saveTournamentName
 
-  $scope.saveTournament = function(){
+  $scope.addTournament = function(){
     var tournamentToSave = {
       name: $rootScope.tournamentName,
       tournament: $rootScope.tournament
@@ -101,6 +102,14 @@ function($scope, $http, $rootScope, $uibModal, playerData) {
     $rootScope.cancel();
   }; // end saveTournament
 
+  $scope.pickWinner = function(winner, loser, round, value) {
+    console.log('round: ', round);
+    console.log('winner = ', winner);
+    console.log('loser = ', loser);
+    console.log(value);
+  }; // end pickWinner
+
+
 
 }]); // end controller 'roundRobinController'
 
@@ -111,11 +120,6 @@ angular.module('myApp').controller('tournamentController',
   function ($scope, $uibModalInstance, $rootScope) {
 
   // $rootScope.id = playerId;
-  // $scope.nameUpdate = $rootScope.playersArray[playerId].name;
-  // $scope.classUpdate = $rootScope.playersArray[playerId].class;
-  // $scope.levelUpdate = $rootScope.playersArray[playerId].level;
-  // $scope.armorUpdate = $rootScope.playersArray[playerId].armor;
-  // $scope.shieldUpdate = $rootScope.playersArray[playerId].shield;
 
   $rootScope.cancel = function(){
     $uibModalInstance.close();

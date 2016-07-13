@@ -2,17 +2,32 @@
 <div class="container-fluid" ng-controller="roundRobinController">
   <button id="getByePlayerBtn" ng-click="getByePlayer()"> Add BYE Player </button><br>
   <button id="roundRobinBtn" ng-click="roundRobin()"> Create New Tournament </button><br>
-  <button id="saveTournamentBtn" ng-click="saveTourney($index)"> Save Tournament </button><br>
+  <button id="saveTournamentBtn" ng-click="saveTourneyPopup()"> Save Tournament </button><br><br>
+
+  <table>
+    <tr ng-repeat="players in playersArray">
+      <td>NAME: {{players.name}}</td>
+    </tr>
+  </table><br>
 
   <h4>Players in tournament</h4>
 
-  <div class="clearfix" ng-if="$index % 3 == 0"></div>
-    <div class="col-sm-4" id="repeatDiv">
-      <div id="robinPlayersDiv" ng-repeat="players in tournament">
-        <li>
-          Round {{players.roundNum}}: {{players.playerOne}} VS. {{players.playerTwo}}
-        </li>
-      </div><br><br>
-    </div>
-  </div>
-</div>
+  <table>
+    <tr ng-repeat="contestant in tournament" >
+      <td>{{ contestant.playerOne }}</td>
+      <td>
+        <select ng-model="resultInputOne" ng-options="result for result in resultCheck"
+        ng-change="pickWinner(contestant.playerOne, contestant.playerTwo, contestant.roundNum, resultInputOne)">
+          <option value=''> result </option>
+      </td>
+      <td>{{ contestant.playerTwo }}</td>
+      <td>
+        <select ng-model="resultInputTwo" ng-options="result for result in resultCheck"
+        ng-change="pickWinner(contestant.playerTwo, contestant.playerOne, contestant.roundNum, resultInputTwo)">
+          <option value=''> result </option>
+      </td>
+    </tr> <!--  -->
+  </table>
+
+
+  <!-- <td><input type="checkbox" ng-click="pickWinner(contestant.playerOne)"></td> -->

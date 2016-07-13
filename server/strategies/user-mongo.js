@@ -19,8 +19,7 @@ passport.deserializeUser(function(id, done) {
   }); // end User.findById
 }); // end passport.deserializeUser
 
-// Does actual work of logging in
-// Called by middleware stack
+// Does actual work of logging in Called by middleware stack
 passport.use('local', new localStrategy({
   passReqToCallback: true,
   usernameField: 'username'

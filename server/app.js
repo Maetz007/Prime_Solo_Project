@@ -6,7 +6,6 @@ var mongoose = require('mongoose');
 var session = require('express-session');
 
 var passport = require('./strategies/user-mongo.js');
-var Player = require('./models/player.js'); // player schema
 
 var loginRoute = require('./routes/appLogin');
 var registerRoute = require('./routes/appRegister');
