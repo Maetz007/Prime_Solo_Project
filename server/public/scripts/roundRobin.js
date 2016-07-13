@@ -4,13 +4,28 @@ function($scope, $http, $rootScope, $uibModal, playerData) {
 
   playerData.loadPlayers();
 
-  $scope.resultCheck = ['3 - 0', '2 - 1', '1 - 2 ', '0 - 3'];
+  $scope.resultCheck = {
+    options: [
+      {point: 4, select: ' result '},
+      {point: 3, select: '3 - 0'},
+      {point: 2, select: '2 - 1'},
+      {point: 1, select: '1 - 2'},
+      {point: 0, select: '0 - 3'}
+  ]};
 
   function Match(roundNum, playerOne, playerTwo) {
     this.roundNum = roundNum;
     this.playerOne = playerOne;
     this.playerTwo = playerTwo;
   } // end Match
+
+  function Record(player, win, loss, round, points) {
+    this.player = player;
+    this.win = win;
+    this.loss = loss;
+    this.round = round;
+    this.points = points;
+  }
 
   $scope.getByePlayer = function(){
     if ($rootScope.playersArray.length % 2 !== 0) {
@@ -54,7 +69,6 @@ function($scope, $http, $rootScope, $uibModal, playerData) {
 
     for (var y = 0; y < ($rootScope.playersArray.length - 1); y++) { // for loop #2
       for (var x = 0; x < halfLength; x++) { // for loop #3
-        var clickable = true;
         var match = new Match(round, arrayOne[x], arrayTwo[x]);
         $rootScope.tournament.push(match);
       } // end for loop #3
@@ -102,11 +116,9 @@ function($scope, $http, $rootScope, $uibModal, playerData) {
     $rootScope.cancel();
   }; // end saveTournament
 
-  $scope.pickWinner = function(winner, loser, round, value) {
-    console.log('round: ', round);
-    console.log('winner = ', winner);
-    console.log('loser = ', loser);
-    console.log(value);
+  $scope.updateRecord = function(winner, loser, round, points) {
+    console.log('round ' + round + ': winner = ' + winner + ' loser = ' + loser);
+    console.log('points for winner = ' + points);
   }; // end pickWinner
 
 

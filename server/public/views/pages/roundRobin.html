@@ -16,18 +16,23 @@
     <tr ng-repeat="contestant in tournament" >
       <td>{{ contestant.playerOne }}</td>
       <td>
-        <select ng-model="resultInputOne" ng-options="result for result in resultCheck"
-        ng-change="pickWinner(contestant.playerOne, contestant.playerTwo, contestant.roundNum, resultInputOne)">
-          <option value=''> result </option>
+        <select ng-model="resultInputOne"
+        ng-change="updateRecord(contestant.playerOne, contestant.playerTwo, contestant.roundNum, resultInputOne)">
+          <option ng-repeat="option in resultCheck.options" value="{{option.point}}"> {{option.select}} </option>
       </td>
       <td>{{ contestant.playerTwo }}</td>
       <td>
-        <select ng-model="resultInputTwo" ng-options="result for result in resultCheck"
-        ng-change="pickWinner(contestant.playerTwo, contestant.playerOne, contestant.roundNum, resultInputTwo)">
-          <option value=''> result </option>
+        <select ng-model="resultInputTwo"
+        ng-change="updateRecord(contestant.playerTwo, contestant.playerOne, contestant.roundNum, resultInputTwo)">
+          <option ng-repeat="option in resultCheck.options" value="{{option.point}}"> {{option.select}} </option>
       </td>
     </tr> <!--  -->
-  </table>
+  </table><br><br>
 
 
   <!-- <td><input type="checkbox" ng-click="pickWinner(contestant.playerOne)"></td> -->
+
+
+  <!-- <select ng-model="resultInputTwo" ng-options="result for result in resultCheck"
+  ng-change="pickWinner(contestant.playerTwo, contestant.playerOne, contestant.roundNum, resultInputTwo)">
+    <option value=''> result </option> -->
