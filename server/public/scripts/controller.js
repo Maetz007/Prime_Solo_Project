@@ -33,9 +33,10 @@ myApp.config(['$routeProvider', function($routeProvider){
 
 myApp.factory('playerData', ['$http', '$rootScope', function($http, $rootScope){
 
+  $rootScope.playersArray = [];
   $rootScope.tournamentName = '';
   $rootScope.tournament = [];
-  $rootScope.playersArray = [];
+  $rootScope.record = [];
 
   var getPlayers = function(){
     $http({
@@ -45,8 +46,22 @@ myApp.factory('playerData', ['$http', '$rootScope', function($http, $rootScope){
       }); // end http GET
   }; // end showPlayers
 
+  var randomId = function(){
+    var text = [];
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    for(var i=0; i < 7; i++)
+      text.push(possible.charAt(Math.floor(Math.random() * possible.length)));
+    return text.join('');
+  };
+
+  var randomNum = function (max, min) {
+    return Math.floor(Math.random() * (max- min + 1)) + min;
+  };
+
   return {
-    loadPlayers: getPlayers
+    loadPlayers: getPlayers,
+    randomId: randomId,
+    randomNum: randomNum
   };
 
 }]);

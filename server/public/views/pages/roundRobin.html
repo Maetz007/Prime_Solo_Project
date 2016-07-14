@@ -10,6 +10,16 @@
     </tr>
   </table><br>
 
+  <div id="tournamentTable">
+    <table>
+      <tr ng-repeat="player in record">
+        <td>
+          Player: {{player.playerName}} Wins: {{player.win}} Losses: {{player.loss}} Points: {{player.points}}
+        </td>
+      </tr>
+    </table>
+  </div><br>
+
   <h4>Players in tournament</h4>
 
   <table>
@@ -28,6 +38,8 @@
       </td>
     </tr> <!--  -->
   </table><br><br>
+
+
 
 
   <!-- <td><input type="checkbox" ng-click="pickWinner(contestant.playerOne)"></td> -->

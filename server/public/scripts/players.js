@@ -18,10 +18,6 @@ function($scope, $http, $uibModal, $rootScope, playerData){
     // {value: true, label: 'True'},
     // {value: false, label: 'False'}
 
-  $scope.randomNum = function (max, min) {
-    return Math.floor(Math.random() * (max- min + 1)) + min;
-  };
-
   $scope.addPlayer = function(){
     var playerInfo = {
       name: $scope.nameInput,
@@ -31,7 +27,7 @@ function($scope, $http, $uibModal, $rootScope, playerData){
       shield: $scope.shieldInput
     }; // end object
     if(playerInfo.name === '' || undefined || 0){
-        playerInfo.name = 'Player#' + $scope.randomNum(1000000, 1000);
+        playerInfo.name = 'RP: ' + playerData.randomId();
     }
     if(playerInfo.class === '' || undefined || 0){
       playerInfo.class = 'Peasant';
@@ -114,7 +110,7 @@ function($scope, $http, $uibModal, $rootScope, playerData){
         url: '/playerUpdate',
         data: updateInfo
       }).then(function(response){
-        // playerData.loadPlayers();
+        playerData.loadPlayers();
         } // end then
       ); // end http
     $rootScope.cancel();
@@ -129,10 +125,10 @@ function($scope, $http, $uibModal, $rootScope, playerData){
       armor: $scope.armorInput,
       shield: $scope.shieldInput
     }; // end object
-    playerInfo.name = 'player#' + $scope.randomNum(1000000, 1000);
-    playerInfo.class = $scope.classTypes[$scope.randomNum(9,0)];
-    playerInfo.level = $scope.randomNum(6,1);
-    playerInfo.armor = $scope.armorNum[$scope.randomNum(5,0)];
+    playerInfo.name = 'RP: ' + playerData.randomId();
+    playerInfo.class = $scope.classTypes[playerData.randomNum(9,0)];
+    playerInfo.level = playerData.randomNum(6,1);
+    playerInfo.armor = $scope.armorNum[playerData.randomNum(5,0)];
     playerInfo.shield = $scope.shieldCheck[$scope.randomValue];
     $http({
       method: 'POST',
@@ -153,7 +149,7 @@ function($scope, $http, $uibModal, $rootScope, playerData){
 //-----------------------------------------  uodateController -----------------------------------------
 
 angular.module('myApp').controller('updateController',
-  function ($scope, $uibModalInstance, $rootScope, playerId) {
+function ($scope, $uibModalInstance, $rootScope, playerId) {
 
   $rootScope.id = playerId;
   $scope.nameUpdate = $rootScope.playersArray[playerId].name;
