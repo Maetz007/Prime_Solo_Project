@@ -1,8 +1,12 @@
-<h3> Round robin page </h3>
 <div class="container-fluid" ng-controller="roundRobinController">
-  <button id="getByePlayerBtn" ng-click="getByePlayer()"> Add BYE Player </button><br>
-  <button id="roundRobinBtn" ng-click="roundRobin()"> Create New Tournament </button><br>
-  <button id="saveTournamentBtn" ng-click="saveTourneyPopup()"> Save Tournament </button><br><br>
+
+  <h3> Round robin page </h3>
+
+  <button id="roundRobinBtn" ng-click="roundRobin()"> Create New Tournament </button>
+  <button id="getByePlayerBtn" ng-click="getByePlayer()"> Add 'BYE' Player </button><br>
+  <button id="saveTournamentBtn" ng-click="saveTourneyPopup()"> Save Tournament </button>
+  <button id="getTournamentBtn" ng-click="loadTournamentPopup()"> Load Tournament </button>
+  <button id="deleteTournamentBtn" ng-click="deleteTourneyPopup()"> Delete Tournament </button><br><br>
 
   <table>
     <tr ng-repeat="players in playersArray">
@@ -11,16 +15,18 @@
   </table><br>
 
   <div id="tournamentTable">
+    <div id="tournamentName"> {{tournamentName}} </div><br>
     <table>
-      <tr ng-repeat="player in record">
+      <tr ng-repeat="player in competitors">
         <td>
-          Player: {{player.playerName}} Wins: {{player.win}} Losses: {{player.loss}} Points: {{player.points}}
+          Player: {{player.competitor}}
+          Wins: {{player.competitorInfo.wins}}
+          Losses: {{player.competitorInfo.losses}}
+          Points: {{player.competitorInfo.points}}
         </td>
       </tr>
     </table>
   </div><br>
-
-  <h4>Players in tournament</h4>
 
   <table>
     <tr ng-repeat="contestant in tournament" >
@@ -37,14 +43,4 @@
           <option ng-repeat="option in resultCheck.options" value="{{option.point}}"> {{option.select}} </option>
       </td>
     </tr> <!--  -->
-  </table><br><br>
-
-
-
-
-  <!-- <td><input type="checkbox" ng-click="pickWinner(contestant.playerOne)"></td> -->
-
-
-  <!-- <select ng-model="resultInputTwo" ng-options="result for result in resultCheck"
-  ng-change="pickWinner(contestant.playerTwo, contestant.playerOne, contestant.roundNum, resultInputTwo)">
-    <option value=''> result </option> -->
+  </table><br>

@@ -18,8 +18,8 @@
     </div> <!-- end inputPlayer div -->
 
     <button id="addPlayerBtn" ng-click="addPlayer()"> Add Player </button>
-    <button id="getPlayersBtn" ng-click="displayPlayers()"> Display Players </button>
-    <button id="randomPlayerBtn" ng-click="randomPlayer()"> Random Player </button><br><br>
+    <button id="randomPlayerBtn" ng-click="randomPlayer()"> Random Player </button>
+    <button id="generateTeamsBtn" ng-click=openTeamsModal()> Create Teams </button><br>
 
     <div ng-repeat="players in playersArray">
       <li>

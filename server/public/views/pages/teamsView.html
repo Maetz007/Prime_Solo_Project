@@ -1,0 +1,22 @@
+<div ng-controller="playersController">
+  <div class="modal-header">
+    <h3 class="modal-title">Create Teams</h3>
+  </div> <!-- end modal-header -->
+
+  <div class="modal-body">
+     <label class="radio-inline">
+       <input type="radio" name="radioTwo" id="radioTwo" ng-model="number" value="2"> 2
+     </label>
+     <label class="radio-inline">
+       <input type="radio" name="radioThree" id="radioThree" ng-model="number" value="3"> 3
+     </label>
+     <label class="radio-inline">
+       <input type="radio" name="radioFour" id="radioFour" ng-model="number" value="4"> 4
+     </label>
+   </div>
+
+   <div class="modal-footer">
+     <button type="button" class="btn btn-primary" ng-click="createTeams(number)">Generate Teams</button>
+     <button class="cancelUpdateBtn btn-warning" type="button" ng-click="cancel()"> Cancel </button>
+   </div>
+</div> <!-- end playersController -->

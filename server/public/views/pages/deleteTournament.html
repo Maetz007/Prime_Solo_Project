@@ -1,17 +1,20 @@
 <div ng-controller="roundRobinController">
   <div class="modal-header">
-    <h3 class="modal-title"> Tournament </h3>
+    <h3 class="modal-title"> Delete Tournament </h3>
   </div> <!-- end modal-header -->
 
   <div class="modal-body">
-    Click "SAVE" to save current tournament.<br>
-    If you delete the tournament, it will be removed forever.<br>
+    If you delete a tournament, it will be removed forever.<br>
     Choose to delete very carefully!
+
+    <li ng-repeat="tournament in tournamentInfo">
+      {{tournament.name}}
+      <button id="deletetornamentBtn" class="deleteTournamentBtn btn-danger"
+        type="button" ng-click="deleteTournament($index)"> Delete </button>
+    </li>
   </div> <!-- end modal-body -->
 
   <div class="modal-footer">
-    <button class="saveTournamentBtn btn-primary" type="button" ng-click="addTournament()"> Save Tournament </button>
-    <button class="deleteTournamentBtn btn-danger" type="button" ng-click="deleteTournament()"> Delete Tournament </button>
     <button class="cancelUpdateBtn btn-warning" type="button" ng-click="cancel()"> Cancel </button>
   </div> <!-- end modal-footer -->
 </div> <!-- end playersController -->

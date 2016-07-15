@@ -17,6 +17,14 @@ function($scope, $http, $uibModal, $rootScope, playerData){
   $scope.shieldCheck = ['Yes', 'No'];
     // {value: true, label: 'True'},
     // {value: false, label: 'False'}
+  $scope.numTeams = {
+    options: [
+      {teams: 2, select: '2'},
+      {teams: 3, select: '3'},
+      {teams: 4, select: '4'},
+      {teams: 5, select: '5'},
+      {teams: 6, select: '6'}
+  ]}; // end resultCheck
 
   $scope.addPlayer = function(){
     var playerInfo = {
@@ -125,7 +133,7 @@ function($scope, $http, $uibModal, $rootScope, playerData){
       armor: $scope.armorInput,
       shield: $scope.shieldInput
     }; // end object
-    playerInfo.name = 'RP: ' + playerData.randomId();
+    playerInfo.name = 'Player: ' + playerData.randomId();
     playerInfo.class = $scope.classTypes[playerData.randomNum(9,0)];
     playerInfo.level = playerData.randomNum(6,1);
     playerInfo.armor = $scope.armorNum[playerData.randomNum(5,0)];
@@ -144,6 +152,22 @@ function($scope, $http, $uibModal, $rootScope, playerData){
     playerData.loadPlayers();
   }; // end randomPlayer function
 
+  $scope.openTeamsModal = function(){
+    $uibModal.open({
+      templateUrl: 'views/pages/teamsView.html',
+      controller: 'teamsController',
+      size: 'sm'
+    }); // end $modal.open
+  }; // end openTeamsModal
+
+  $scope.createTeams = function(numberTeams){
+    console.log(numberTeams);
+    
+
+
+    $rootScope.cancel();
+  };
+
 }]); // end controller 'playersController'
 
 //-----------------------------------------  uodateController -----------------------------------------
@@ -157,6 +181,16 @@ function ($scope, $uibModalInstance, $rootScope, playerId) {
   $scope.levelUpdate = $rootScope.playersArray[playerId].level;
   $scope.armorUpdate = $rootScope.playersArray[playerId].armor;
   $scope.shieldUpdate = $rootScope.playersArray[playerId].shield;
+
+  $rootScope.cancel = function(){
+    $uibModalInstance.close();
+  }; // end cancel
+}); // end updateController
+
+//-----------------------------------------  teamsController -----------------------------------------
+
+angular.module('myApp').controller('teamsController',
+function ($scope, $uibModalInstance, $rootScope) {
 
   $rootScope.cancel = function(){
     $uibModalInstance.close();

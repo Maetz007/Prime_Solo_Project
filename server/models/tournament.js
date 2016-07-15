@@ -3,7 +3,8 @@ var Schema = mongoose.Schema;
 
 var tournamentSchema = new Schema({
   name: String,
-  tournament: [{}]
+  tournament: [{}],
+  results: [{}]
 });
 
 var Tournament = mongoose.model('Tournament', tournamentSchema);

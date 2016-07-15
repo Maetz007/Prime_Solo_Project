@@ -34,15 +34,26 @@ myApp.config(['$routeProvider', function($routeProvider){
 myApp.factory('playerData', ['$http', '$rootScope', function($http, $rootScope){
 
   $rootScope.playersArray = [];
+  $rootScope.tournamentInfo = [];
   $rootScope.tournamentName = '';
   $rootScope.tournament = [];
   $rootScope.record = [];
+  $rootScope.competitors = [];
 
   var getPlayers = function(){
     $http({
       method: 'GET',
       url: '/getPlayers', }).then(function(response){
         $rootScope.playersArray = response.data;
+
+      }); // end http GET
+  }; // end showPlayers
+
+  var getTournament = function(){
+    $http({
+      method: 'GET',
+      url: '/getTournament', }).then(function(response){
+        $rootScope.tournamentInfo = response.data;
       }); // end http GET
   }; // end showPlayers
 
@@ -60,6 +71,7 @@ myApp.factory('playerData', ['$http', '$rootScope', function($http, $rootScope){
 
   return {
     loadPlayers: getPlayers,
+    getTournament: getTournament,
     randomId: randomId,
     randomNum: randomNum
   };

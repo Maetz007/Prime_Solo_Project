@@ -1,0 +1,18 @@
+<div ng-controller="roundRobinController">
+  <div class="modal-header">
+    <h3 class="modal-title"> Load Tournament </h3>
+  </div> <!-- end modal-header -->
+
+  <div class="modal-body">
+
+    <li ng-repeat="tournament in tournamentInfo">
+      {{tournament.name}}
+      <button id="loadtornamentBtn" class="loadTournamentBtn btn-primary"
+        type="button" ng-click="loadTournament($index)"> LOAD </button>
+    </li>
+  </div> <!-- end modal-body -->
+
+  <div class="modal-footer">
+    <button class="cancelUpdateBtn btn-warning" type="button" ng-click="cancel()"> Cancel </button>
+  </div> <!-- end modal-footer -->
+</div> <!-- end playersController -->

@@ -3,15 +3,16 @@ angular.module('myApp').controller('roundRobinController',
 function($scope, $http, $rootScope, $uibModal, playerData) {
 
   playerData.loadPlayers();
+  playerData.getTournament();
+  $scope.playersList = 'Players in Tournament:';
+
+  $scope.winLossDisplay = ['2 - 0', '2 - 1', '1 - 2', '0 - 2'];
 
   $scope.resultCheck = {
     options: [
-      {point: 4, select: 'result'},
-      {point: 3, select: '2 - 0'},
-      {point: 2, select: '2 - 1'},
-      {point: 1, select: '1 - 2'},
-      {point: 0, select: '0 - 2'}
-  ]};
+      {point: 1, select: '2 - 1'},
+      {point: 2, select: '2 - 0'}
+  ]}; // end resultCheck
 
   function Match(roundNum, playerOne, playerTwo) {
     this.roundNum = roundNum;
@@ -19,13 +20,24 @@ function($scope, $http, $rootScope, $uibModal, playerData) {
     this.playerTwo = playerTwo;
   } // end Match
 
-  function Record(playerName, win, loss, points, round) {
+  function Record(playerName, playerRound, playerInfo) {
     this.playerName = playerName;
-    this.win = win;
-    this.loss = loss;
-    this.points = points;
-    this.round = round;
-  }
+    this.playerRound = playerRound;
+    this.playerInfo = {
+      wins: 0,
+      losses: 0,
+      points: 0
+    }; // end playerRound array
+  } // end Record
+
+  function Competitor(competitor, competitorInfo) {
+    this.competitor = competitor;
+    this.competitorInfo = {
+      wins: 0,
+      losses: 0,
+      points: 0
+    }; // end playerRound array
+  } // end Record
 
   $scope.getByePlayer = function(){
     if ($rootScope.playersArray.length % 2 !== 0) {
@@ -50,6 +62,9 @@ function($scope, $http, $rootScope, $uibModal, playerData) {
   if ($rootScope.playersArray.length % 2 !== 0){
     window.alert('Round Robin Tournaments must \nhave an even number of players. \nPlease use the "Add BYE Player" button.');
   } else {
+    $rootScope.competitors = [];
+    $rootScope.record = [];
+    $rootScope.tournament = [];
     $scope.getTournamentName();
     var halfLength = ($rootScope.playersArray.length / 2);
     var tempArray = $rootScope.playersArray;
@@ -85,26 +100,27 @@ function($scope, $http, $rootScope, $uibModal, playerData) {
         round++;
       } // end for loop #2
     for (var z = 0; z < $rootScope.playersArray.length; z++) { // for loop #4
-      var initialWin = 0;
-      var initialLoss = 0;
-      var initialPoints = 0;
-      var initialRound = 1;
-      var initialInfo = new Record(
-        $rootScope.playersArray[z].name,
-        initialWin,
-        initialLoss,
-        initialPoints,
-        initialRound
-      ); // end Record
-      $rootScope.record.push(initialInfo);
+      for (var n = 0; n <$rootScope.playersArray.length - 1; n++) { // for loop #5
+        var playerName = $rootScope.playersArray[z].name;
+        var roundNum = n+1;
+        var initialInfo = new Record (
+          playerName,
+          roundNum
+        ); // end Record
+        $rootScope.record.push(initialInfo);
+      } // end for loop #5
+      var addPlayers = new Competitor (
+        $rootScope.playersArray[z].name
+      );
+      $rootScope.competitors.push(addPlayers);
     } // end for loop #4
-    var allPlayers = $rootScope.record;
-    for(var r = 0; r < allPlayers.length; r++) { // for loop #5
-      if (allPlayers[r].playerName == 'BYE') {
-        $rootScope.record.splice(r, 1);
+    var allPlayers = $rootScope.competitors;
+    for(var r = 0; r < allPlayers.length; r++) { // for loop #6
+      if (allPlayers[r].competitor == 'BYE') {
+        $rootScope.competitors.splice(r, 1);
         break;
       } // end if
-    } // end for loop #5
+    } // end for loop #6
     } // end else
   }; // end roundRobin
 
@@ -112,13 +128,29 @@ function($scope, $http, $rootScope, $uibModal, playerData) {
     $uibModal.open({
       templateUrl: 'views/pages/newTournament.html',
       controller: 'tournamentController',
+      size: 'sm'
     }); // end $modal.open
   }; // end openUpdate
 
+  $scope.loadTournamentPopup = function(){
+    $uibModal.open({
+      templateUrl: 'views/pages/loadTournament.html',
+      controller: 'tournamentController',
+    }); // end $modal.open
+  };
+
   $scope.saveTourneyPopup = function(index){
     $uibModal.open({
-      templateUrl: 'views/pages/tournamentModal.html',
+      templateUrl: 'views/pages/saveTournament.html',
       controller: 'tournamentController',
+      size: 'sm'
+    }); // end $modal.open
+  }; // end openUpdate
+
+  $scope.deleteTourneyPopup = function(){
+    $uibModal.open({
+      templateUrl: 'views/pages/deleteTournament.html',
+      controller: 'tournamentController'
     }); // end $modal.open
   }; // end openUpdate
 
@@ -127,10 +159,23 @@ function($scope, $http, $rootScope, $uibModal, playerData) {
     $rootScope.cancel();
   }; // end saveTournamentName
 
-  $scope.addTournament = function(){
+  $scope.loadTournament = function(index){
+    playerData.getTournament();
+    $rootScope.tournamentName = '';
+    $rootScope.tournament =[];
+    $rootScope.competitors = [];
+    $rootScope.tournamentName = $rootScope.tournamentInfo[index].name;
+    $rootScope.tournament = $rootScope.tournamentInfo[index].tournament;
+    $rootScope.competitors = $rootScope.tournamentInfo[index].results;
+    // $rootScope.record = [];
+    $rootScope.cancel();
+  };
+
+  $scope.saveTournament = function(){
     var tournamentToSave = {
       name: $rootScope.tournamentName,
-      tournament: $rootScope.tournament
+      tournament: $rootScope.tournament,
+      results: $rootScope.competitors
     }; // end object
     $http({
       method: 'POST',
@@ -138,25 +183,65 @@ function($scope, $http, $rootScope, $uibModal, playerData) {
       data: tournamentToSave
     }).then(function(response){
     }); // end .then
+    $rootScope.tournamentName = '';
+    $scope.playersList = '';
+    $rootScope.tournament =[];
+    $rootScope.competitors = [];
     $rootScope.cancel();
   }; // end saveTournament
 
+  $scope.deleteTournament = function(index){
+    var tournamentId = {
+      id: $rootScope.tournamentInfo[index]._id
+    }; // end playerId
+    $http({
+      method: 'POST',
+      url: '/deleteTournament',
+      data: tournamentId
+    }); // end http
+    $rootScope.tournamentInfo.splice(index, 1);
+  }; // end deletePlayer
 
   $scope.updateRecord = function(winner, loser, round, points) {
-    var allPlayers = $rootScope.record;
-    var check;
-    for(var i = 0; i < allPlayers.length; i++) {
-      if (allPlayers[i].playerName == winner) {
-        check = allPlayers[i].playerName;
+    var winnerPoints, loserPoints, wins, losses;
+    if (points == 2) {
+      winnerPoints = 3; loserPoints = 0;
+    } else if (points == 1) {
+      winnerPoints = 2; loserPoints = 1;
+    } // end else if
+    for (var w = 0; w < $rootScope.record.length; w++) { // for loop #1
+      if($rootScope.record[w].playerName == winner && $rootScope.record[w].playerRound == round){
+        $rootScope.record[w].playerInfo.wins = 1;
+        $rootScope.record[w].playerInfo.losses = 0;
+        $rootScope.record[w].playerInfo.points = winnerPoints;
+        wins = 1;
+        losses = 0;
+        $scope.displayRecords(winner, wins, losses, winnerPoints);
         break;
       } // end if
-    } // end for loop
-    if(check){
-      console.log(check);
-    } // end if
+    } // end for loop #1
+    for (var l = 0; l < $rootScope.record.length; l++) { // for loop #1
+      if($rootScope.record[l].playerName == loser && $rootScope.record[l].playerRound == round){
+        $rootScope.record[l].playerInfo.wins = 0;
+        $rootScope.record[l].playerInfo.losses = 1;
+        $rootScope.record[l].playerInfo.points = loserPoints;
+        wins = 0;
+        losses = 1;
+        $scope.displayRecords(loser, wins, losses, loserPoints);
+        break;
+      } // end if
+    } // end for loop #1
   }; // end pickWinner
 
-
+  $scope.displayRecords = function(player, wins, losses, points){
+    for (var c = 0; c < $rootScope.competitors.length; c++) { // for loop #1
+      if($rootScope.competitors[c].competitor == player){
+        $rootScope.competitors[c].competitorInfo.wins = $rootScope.competitors[c].competitorInfo.wins + wins;
+        $rootScope.competitors[c].competitorInfo.losses = $rootScope.competitors[c].competitorInfo.losses + losses;
+        $rootScope.competitors[c].competitorInfo.points = $rootScope.competitors[c].competitorInfo.points + points;
+      } // end if
+    } // for loop #1
+  }; // end displayRecords
 
 }]); // end controller 'roundRobinController'
 
