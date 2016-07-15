@@ -1,3 +1,21 @@
-#round {
-  font-size: 12px;
+.rounds {
+  display: inline;
+}
+
+.led
+{
+	width: 100px;
+	height: 100px;
+	border-style: solid;
+	border-width: 2px;
+}
+
+.led-on
+{
+	background-color: green;
+}
+
+.led-off
+{
+	background-color: red;
 }

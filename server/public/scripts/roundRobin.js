@@ -111,7 +111,7 @@ function($scope, $http, $rootScope, $uibModal, playerData) {
       } // end for loop #5
       var addPlayers = new Competitor (
         $rootScope.playersArray[z].name
-      );
+      ); // end new Competitor
       $rootScope.competitors.push(addPlayers);
     } // end for loop #4
     var allPlayers = $rootScope.competitors;
@@ -203,6 +203,7 @@ function($scope, $http, $rootScope, $uibModal, playerData) {
   }; // end deletePlayer
 
   $scope.updateRecord = function(winner, loser, round, points) {
+    console.log('updateRecord button clicked');
     var winnerPoints, loserPoints, wins, losses, oppPoints;
     if (points == 2) {
       winnerPoints = 3; loserPoints = 0;
@@ -248,7 +249,7 @@ function($scope, $http, $rootScope, $uibModal, playerData) {
   }; // end displayRecords
 
   $scope.sortingHat = function(){
-    $rootScope.competitors.sort(function (left, right) {
+    $rootScope.competitors.sort(function (left, right) { // sorts by points first
       if (left.competitorInfo.points > right.competitorInfo.points) {
         return 1;
       } // end if
@@ -257,7 +258,7 @@ function($scope, $http, $rootScope, $uibModal, playerData) {
       } // end if
       return 0;
     }); // end sort
-    $rootScope.competitors.sort(function (up, down) {
+    $rootScope.competitors.sort(function (up, down) { // sorts by wins after points have been sorted
       if (up.competitorInfo.wins > down.competitorInfo.wins) {
         return 1;
       } // end if
@@ -268,6 +269,28 @@ function($scope, $http, $rootScope, $uibModal, playerData) {
     }); // end sort
     return $rootScope.competitors.reverse();
   }; // end sortingHat
+
+ $scope.doSomething = function(){
+   var tableRound = angular.element(document.querySelector('#tableDiv'));
+   var roundAttach;
+   var tempArray = [];
+   tempArray = $rootScope.tournament;
+
+   var thingyMehJigger = ' STUFF! ';
+
+   var numPlayers = $rootScope.playersArray.length;
+   for (var r = 1; r < numPlayers; r++) {
+     var roundNum = r;
+     tableRound.append('<table class="rounds" id="round' + roundNum + '"</table>');
+   }
+  //  for (var m = 1; m < tempArray.length + 1; m++) {
+  //    if ($rootScope.tournament[m-1].roundNum == m) {
+  //     roundAttach = angular.element(document.querySelector('#round' + m));
+  //     roundAttach.append('<tr> <td>{{ contestant.playerOne }}</td> <td> <select ng-model="resultInputOne"ng-change="updateRecord(contestant.playerOne, contestant.playerTwo, contestant.roundNum, resultInputOne)"><option ng-repeat="option in resultCheck.options" value="{{option.point}}"> {{option.select}} </option> </td> <td>{{ contestant.playerTwo }}</td> <td> <select ng-model="resultInputTwo" ng-change="updateRecord(contestant.playerTwo, contestant.playerOne, contestant.roundNum, resultInputTwo)"> <option ng-repeat="option in resultCheck.options" value="{{option.point}}"> {{option.select}} </option> </td> </tr>');
+  //     tempArray.splice(m-1, 1);
+  //    }
+  //  }
+ }; // end doSomething
 
 
 }]); // end controller 'roundRobinController'
@@ -280,5 +303,22 @@ function ($scope, $uibModalInstance, $rootScope) {
 
   $rootScope.cancel = function(){
     $uibModalInstance.close();
-  }; // end cancel
-}); // end updateController
+    }; // end cancel
+  }); // end updateController
+
+angular.module('myApp').directive('myTables', function(){
+  return {
+    template: '<tr><td>{{ $rootScope.tournament[1].playerOne }}</td><td> <select ng-model="resultInputOne"ng-change="updateRecord(contestant.playerOne, contestant.playerTwo, contestant.roundNum, resultInputOne)"><option ng-repeat="option in resultCheck.options" value="{{option.point}}"> {{option.select}} </option> </td> <td>{{ contestant.playerTwo }}</td> <td> <select ng-model="resultInputTwo" ng-change="updateRecord(contestant.playerTwo, contestant.playerOne, contestant.roundNum, resultInputTwo)"> <option ng-repeat="option in resultCheck.options" value="{{option.point}}"> {{option.select}} </option> </td> </tr>'
+  		// restrict: "E",
+  		// replace: true,
+  		// template: "<div class='led led-off' ng-class='{ \"led-on\": isOn, \"led-off\": !isOn }' ng-click='onOff()'>{{isOn}}</div>",
+  	// 	link: function(scope, element, attributes, controller)
+  	// 	{
+  	// 		scope.isOn = false;
+    //           scope.onOff = function () {
+    //               scope.isOn = !scope.isOn;
+    //           };
+    //
+  	// 	}
+  	};
+});

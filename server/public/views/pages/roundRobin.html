@@ -27,7 +27,7 @@
   </div><br>
 
   <table>
-    <tr ng-repeat="contestant in tournament" >
+    <tr ng-repeat= "contestant in tournament ">
       <td>{{ contestant.playerOne }}</td>
       <td>
         <select ng-model="resultInputOne"
@@ -41,19 +41,12 @@
           <option ng-repeat="option in resultCheck.options" value="{{option.point}}"> {{option.select}} </option>
       </td>
     </tr>
-  </table><br>
+  </table><br><br>
 
+   <!-- ng-if="contestant.roundNum" ng-repeat= "contestant in tournament"  -->
 
-  <!-- <div ng-repeat="contestant in tournament" >
+ <button ng-click="doSomething()">Does something?</button><br>
+ <my-Tables /><br>
 
-      {{ contestant.playerOne }}
-      <select ng-model="resultInputOne"
-      ng-change="updateRecord(contestant.playerOne, contestant.playerTwo, contestant.roundNum, resultInputOne)">
-        <option ng-repeat="option in resultCheck.options" value="{{option.point}}"> {{option.select}} </option>
-
-      {{ contestant.playerTwo }}
-      <select ng-model="resultInputTwo"
-      ng-change="updateRecord(contestant.playerTwo, contestant.playerOne, contestant.roundNum, resultInputTwo)">
-        <option ng-repeat="option in resultCheck.options" value="{{option.point}}"> {{option.select}} </option>
-
-  </div><br> -->
+  <div id="tableDiv">
+  </div>
