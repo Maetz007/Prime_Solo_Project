@@ -10,7 +10,6 @@ var passport = require('./strategies/user-mongo.js');
 var loginRoute = require('./routes/appLogin');
 var registerRoute = require('./routes/appRegister');
 var adminRoute = require('./routes/appAdmin');
-var eventsRoute = require('./routes/appEvents');
 var mainRoute = require('./routes/appMain');
 var playerRoute = require('./routes/appPlayer');
 var roundRobinRoute = require('./routes/appRoundRobin');
@@ -36,10 +35,10 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/', loginRoute, registerRoute, adminRoute, eventsRoute, mainRoute, playerRoute, roundRobinRoute);
+app.use('/', loginRoute, registerRoute, adminRoute, mainRoute, playerRoute, roundRobinRoute);
 
 app.get('/*', function(req,res){
   console.log('You Are in L');
-  var file = req.params[0] || 'views/index.html';
+  var file = req.params[0] || 'views/pages/index.html';
   res.sendFile(path.join(__dirname, '/public/', file));
 }); // end app.get base URL

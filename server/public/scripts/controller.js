@@ -14,9 +14,6 @@ myApp.config(['$routeProvider', function($routeProvider){
       .when('/players', {
           templateUrl: '/views/pages/players.html',
       })
-      .when('/events', {
-          templateUrl: '/views/pages/events.html',
-      })
       .when('/roundRobin', {
           templateUrl: 'views/pages/roundRobin.html',
       })

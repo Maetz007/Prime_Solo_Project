@@ -8,11 +8,9 @@
   <button id="getTournamentBtn" ng-click="loadTournamentPopup()"> Load Tournament </button>
   <button id="deleteTournamentBtn" ng-click="deleteTourneyPopup()"> Delete Tournament </button><br><br>
 
-  <table>
-    <tr ng-repeat="players in playersArray">
-      <td>NAME: {{players.name}}</td>
-    </tr>
-  </table><br>
+  <div ng-repeat="players in playersArray">
+      NAME: {{players.name}}
+  </div><br>
 
   <div id="tournamentTable">
     <div id="tournamentName"> {{tournamentName}} </div><br>
@@ -42,5 +40,20 @@
         ng-change="updateRecord(contestant.playerTwo, contestant.playerOne, contestant.roundNum, resultInputTwo)">
           <option ng-repeat="option in resultCheck.options" value="{{option.point}}"> {{option.select}} </option>
       </td>
-    </tr> <!--  -->
+    </tr>
   </table><br>
+
+
+  <!-- <div ng-repeat="contestant in tournament" >
+
+      {{ contestant.playerOne }}
+      <select ng-model="resultInputOne"
+      ng-change="updateRecord(contestant.playerOne, contestant.playerTwo, contestant.roundNum, resultInputOne)">
+        <option ng-repeat="option in resultCheck.options" value="{{option.point}}"> {{option.select}} </option>
+
+      {{ contestant.playerTwo }}
+      <select ng-model="resultInputTwo"
+      ng-change="updateRecord(contestant.playerTwo, contestant.playerOne, contestant.roundNum, resultInputTwo)">
+        <option ng-repeat="option in resultCheck.options" value="{{option.point}}"> {{option.select}} </option>
+
+  </div><br> -->

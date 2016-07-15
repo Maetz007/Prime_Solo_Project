@@ -234,6 +234,7 @@ function($scope, $http, $rootScope, $uibModal, playerData) {
   }; // end pickWinner
 
   $scope.displayRecords = function(player, wins, losses, points){
+    var tempArray = [];
     for (var c = 0; c < $rootScope.competitors.length; c++) { // for loop #1
       if($rootScope.competitors[c].competitor == player){
         $rootScope.competitors[c].competitorInfo.wins = $rootScope.competitors[c].competitorInfo.wins + wins;
@@ -241,7 +242,22 @@ function($scope, $http, $rootScope, $uibModal, playerData) {
         $rootScope.competitors[c].competitorInfo.points = $rootScope.competitors[c].competitorInfo.points + points;
       } // end if
     } // for loop #1
+    $scope.sortingHat();
   }; // end displayRecords
+
+  $scope.sortingHat = function(){
+    $rootScope.competitors.sort(function (left, right) {
+      if (left.competitorInfo.points > right.competitorInfo.points) {
+        return 1;
+      } // end if
+      if (left.competitorInfo.points < right.competitorInfo.points) {
+        return -1;
+      } // end if
+      return 0;
+    }); // end sort
+    return $rootScope.competitors.reverse();
+  }; // end sortingHat
+
 
 }]); // end controller 'roundRobinController'
 
