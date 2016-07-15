@@ -203,14 +203,27 @@ function($scope, $http, $rootScope, $uibModal, playerData) {
   }; // end deletePlayer
 
   $scope.updateRecord = function(winner, loser, round, points) {
-    var winnerPoints, loserPoints, wins, losses;
+    var winnerPoints, loserPoints, wins, losses, oppPoints;
     if (points == 2) {
       winnerPoints = 3; loserPoints = 0;
     } else if (points == 1) {
       winnerPoints = 2; loserPoints = 1;
     } // end else if
-    for (var w = 0; w < $rootScope.record.length; w++) { // for loop #1
+    for (var l = 0; l < $rootScope.record.length; l++) { // for loop #1
+      if($rootScope.record[l].playerName == loser && $rootScope.record[l].playerRound == round){
+        $rootScope.record[l].playerInfo.wins = 0;
+        $rootScope.record[l].playerInfo.losses = 1;
+        $rootScope.record[l].playerInfo.points = loserPoints;
+        wins = 0;
+        losses = 1;
+        // oppPoints = $rootScope.record[l].playerInfo.points;
+        $scope.displayRecords(loser, wins, losses, loserPoints);
+        break;
+      } // end if
+    } // end for loop #1
+    for (var w = 0; w < $rootScope.record.length; w++) { // for loop #2
       if($rootScope.record[w].playerName == winner && $rootScope.record[w].playerRound == round){
+        // winnerPoints = winnerPoints + oppPoints;
         $rootScope.record[w].playerInfo.wins = 1;
         $rootScope.record[w].playerInfo.losses = 0;
         $rootScope.record[w].playerInfo.points = winnerPoints;
@@ -219,18 +232,7 @@ function($scope, $http, $rootScope, $uibModal, playerData) {
         $scope.displayRecords(winner, wins, losses, winnerPoints);
         break;
       } // end if
-    } // end for loop #1
-    for (var l = 0; l < $rootScope.record.length; l++) { // for loop #1
-      if($rootScope.record[l].playerName == loser && $rootScope.record[l].playerRound == round){
-        $rootScope.record[l].playerInfo.wins = 0;
-        $rootScope.record[l].playerInfo.losses = 1;
-        $rootScope.record[l].playerInfo.points = loserPoints;
-        wins = 0;
-        losses = 1;
-        $scope.displayRecords(loser, wins, losses, loserPoints);
-        break;
-      } // end if
-    } // end for loop #1
+    } // end for loop #2
   }; // end pickWinner
 
   $scope.displayRecords = function(player, wins, losses, points){
@@ -251,6 +253,15 @@ function($scope, $http, $rootScope, $uibModal, playerData) {
         return 1;
       } // end if
       if (left.competitorInfo.points < right.competitorInfo.points) {
+        return -1;
+      } // end if
+      return 0;
+    }); // end sort
+    $rootScope.competitors.sort(function (up, down) {
+      if (up.competitorInfo.wins > down.competitorInfo.wins) {
+        return 1;
+      } // end if
+      if (up.competitorInfo.wins < down.competitorInfo.wins) {
         return -1;
       } // end if
       return 0;
