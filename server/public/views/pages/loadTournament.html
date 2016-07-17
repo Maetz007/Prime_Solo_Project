@@ -7,12 +7,11 @@
 
     <li ng-repeat="tournament in tournamentInfo">
       {{tournament.name}}
-      <button id="loadtornamentBtn" class="loadTournamentBtn btn-primary"
-        type="button" ng-click="loadTournament($index)"> LOAD </button>
+      <button class="basicBtn"type="button" ng-click="loadTournament($index)">LOAD</button>
     </li>
   </div> <!-- end modal-body -->
 
   <div class="modal-footer">
-    <button class="cancelUpdateBtn btn-warning" type="button" ng-click="cancel()"> Cancel </button>
+    <button class="basicBtn" type="button" ng-click="cancel()"> Cancel </button>
   </div> <!-- end modal-footer -->
 </div> <!-- end playersController -->

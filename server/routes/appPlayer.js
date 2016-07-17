@@ -15,9 +15,7 @@ route.post('/playerAdd', function(req, res) {
   var newPlayer = new Player({
     name: req.body.name,
     class: req.body.class,
-    level: req.body.level,
-    armor: req.body. armor,
-    shield: req.body.shield
+    level: req.body.level
   }); // end newPlayer object
   newPlayer.save(function(err) {
     if(err){
@@ -51,9 +49,12 @@ route.post('/playerUpdate', function(req, res){
         console.log(err);
         res.sendStatus(500);
       } else {
-        Player.update({name: req.body.name, class: req.body.class, level: req.body.level,
-          armor: req.body.armor, shield: req.body.shield}, function(err) {});
-          console.log('Player has been updated');
+        Player.update({
+          name: req.body.name,
+          class: req.body.class,
+          level: req.body.level
+        }, 
+        function(err) {}); console.log('Player has been updated');
         res.sendStatus(200);
       } // end else
     }); // Player.findOne

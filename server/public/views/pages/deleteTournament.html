@@ -9,12 +9,11 @@
 
     <li ng-repeat="tournament in tournamentInfo">
       {{tournament.name}}
-      <button id="deletetornamentBtn" class="deleteTournamentBtn btn-danger"
-        type="button" ng-click="deleteTournament($index)"> Delete </button>
+      <button class="basicBtn" ng-click="deleteTournament($index)">Delete</button>
     </li>
   </div> <!-- end modal-body -->
 
   <div class="modal-footer">
-    <button class="cancelUpdateBtn btn-warning" type="button" ng-click="cancel()"> Cancel </button>
+    <button class="basicBtn" ng-click="cancel()">Cancel</button>
   </div> <!-- end modal-footer -->
 </div> <!-- end playersController -->

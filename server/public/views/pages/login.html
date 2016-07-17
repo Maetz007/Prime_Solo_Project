@@ -1,15 +1,25 @@
 <div class="container-fluid" ng-controller="loginController">
-  <div id="headerLogin">
-    <h3>LOGIN PAGE</h3>
-    <form action="/userLogin" method="post">
+<div id="loginRegPageBackground">
 
-      <div>
-        <input type="text" name="username" id="username" placeholder=" -- User Name -- "><br>
-        <input type="password" name="password" id="password" placeholder=" -- Password -- "><br><br>
-        <input type="submit" value=" Login "><br><br>
-        <a href="#register">Register</a>
-      </div>
-
-    </form>
-  </div> <!-- end headerLogin div -->
+<div id="loginRegBox">
+    <div id="loginHeader">
+      <form action="/userLogin" method="post">
+        <div>
+          <input type="text" name="username" id="login" placeholder=" Login Name "><br>
+          <input type="password" name="password" id="password" placeholder=" Password "><br><br>
+          <input class="loginRegBtn" id="loginBtn" type="submit" value=" Login "><br><br>
+        </div>
+      </form>
+    </div> <!-- end headerLogin div -->
+    <div id="registerHeader" class="">
+      <form action="/registerUser" method="post">
+        <div>
+          <input type="text" name="username" id="register" placeholder=" Register Name "><br>
+          <input type="password" name="password" id="password" placeholder=" Password "><br><br>
+          <input class="loginRegBtn" id="registerBtn" type="submit" value=" Register "><br><br>
+        </div>
+        </form>
+      </div> <!-- end registerHeader -->
+  </div> <!-- end loginRegBox -->
+</div>
 </div> <!-- end loginController -->

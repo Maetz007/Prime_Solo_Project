@@ -1,4 +1,4 @@
-<div ng-controller="playersController">
+<div ng-controller="roundRobinController">
   <div class="modal-header">
     <h3 class="modal-title">Update Player Info</h3>
   </div> <!-- end modal-header -->
@@ -10,19 +10,13 @@
         <option value=''> {{playersArray[id].class}} </option>
       </select><br>
       <select ng-model="levelUpdate" ng-options="levels for levels in levelNum">
-        <option value=''> {{playersArray[id].level}} </option>
-      </select><br>
-      <select ng-model="armorUpdate" ng-options="armor for armor in armorNum">
-        <option value=''> {{playersArray[id].armor}} </option>
-      </select><br>
-      <select ng-model="shieldUpdate" ng-options="shield for shield in shieldCheck">
-        <option value=''> {{playersArray[id].shield}} </option>
+        <option value=''>Level: {{playersArray[id].level}} </option>
       </select><br>
     </div> <!-- end updatePlayer div -->
   </div> <!-- end modal-body -->
 
   <div class="modal-footer">
-    <button class="updateBtn btn-primary" type="button" ng-click="updatePlayer(id)"> Update Player </button>
-    <button class="cancelUpdateBtn btn-warning" type="button" ng-click="cancel()"> Cancel </button>
+    <button class="basicBtn" ng-click="updatePlayer(id)"> Update Player </button>
+    <button class="basicBtn" ng-click="cancel()"> Cancel </button>
   </div> <!-- end modal-footer -->
 </div> <!-- end playersController -->

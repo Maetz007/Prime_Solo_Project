@@ -1,21 +1,157 @@
-.rounds {
-  display: inline;
+html, body {
+    margin: 0; padding:0; border: 0;
+    overflow: hidden
+}
+#header, #footer {
+    position: relative;
+    width: 100%;
+    background-color: #999;
+}
+/*#header {
+    background: #777;
+    height: 150px;
+    top: 0
 }
 
-.led
-{
-	width: 100px;
-	height: 100px;
-	border-style: solid;
-	border-width: 2px;
+#footer {
+    background: #777;
+    height: 150px;
+    bottom: 0
+}*/
+.navBtnDiv {
+  text-align: center;
 }
 
-.led-on
-{
-	background-color: green;
+/*--------------------------------- Login page with register ---------------------------------*/
+
+#loginRegPageBackground {
+  height: 100vh;
+  width:100%;
+  background: #2d715c;
+  background-image: url("/images/zenbg-1.png"), url("/images/zenbg-2.png");
+  background-repeat: repeat-x, repeat;
 }
 
-.led-off
-{
-	background-color: red;
+#loginRegBox {
+  position: absolute;
+  margin: auto;
+  padding: 25px;
+  background: #999;
+  background: ##444c3c;
+  background-image: url("/images/zenbg-3.png"), url("images/zenbg-4.png");
+  background-repeat: repeat-x, repeat;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 275px;
+  width: 275px;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 10px 14px 0 rgba(0,0,0,0.24),0 12px 24px 0 rgba(0,0,0,0.19);
+}
+
+.loginRegBtn {
+  border-radius: 10px;
+  border: none;
+  text-align: center;
+  display: inline-block;
+  font-size: 18px;
+  margin: 4px 2px;
+  cursor: pointer;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+}
+
+.loginRegBtn:hover {
+  box-shadow: 0 10px 14px 0 rgba(0,0,0,0.24),0 12px 24px 0 rgba(0,0,0,0.19);
+}
+
+#login, #register, #password {
+  width: 100%;
+  text-align: center;
+  background-color: #d9d9d9;
+}
+
+#loginBtn {
+  background-color: #0000ff;
+  color: white;
+}
+
+#registerBtn {
+  background-color: #00cc00;
+  color: white;
+}
+
+/*---------------------------------------- main page -----------------------------------------*/
+
+
+
+
+/*-------------------------------- roundRobin tournament page --------------------------------*/
+#tournamentBtns {
+  text-align: center;
+}
+
+.basicBtn {
+  border-radius: 10px;
+  border: none;
+  text-align: center;
+  display: inline-block;
+  font-size: 12px;
+  margin: 4px 2px;
+  cursor: pointer;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+}
+
+.basicBtn:hover {
+  box-shadow: 0 10px 14px 0 rgba(0,0,0,0.24),0 12px 24px 0 rgba(0,0,0,0.19);
+}
+
+.boxWrapper{
+  width: 49%;
+  float: left;
+}
+
+#top {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  border: 2px double #999;
+  overflow:scroll;
+  margin: 5px;
+  background-color: #FCFADD;
+  color:#714D03;
+}
+#playerInputDiv {
+  text-align: center;
+}
+#nameIn {
+  text-align: center;
+  width: 50%;
+  height: 10%;
+}
+
+#left {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  border: 2px double #999;
+  overflow:scroll;
+  margin: 5px;
+  background-color: #FCFADD;
+  color:#714D03;
+}
+
+#right {
+  display: inline-block;
+  float: right;
+  width: 49%;
+  height: 500px;
+  border: 2px double #999;
+  overflow:scroll;
+  margin: 8px;
+  background-color: #FCFADD;
+  color:#714D03;
 }

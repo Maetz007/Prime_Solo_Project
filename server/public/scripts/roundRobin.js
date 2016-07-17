@@ -4,6 +4,7 @@ function($scope, $http, $rootScope, $uibModal, playerData) {
 
   playerData.loadPlayers();
   playerData.getTournament();
+  playerData.loadDivRounds();
   $scope.playersList = 'Players in Tournament:';
 
   $scope.winLossDisplay = ['2 - 0', '2 - 1', '1 - 2', '0 - 2'];
@@ -60,7 +61,8 @@ function($scope, $http, $rootScope, $uibModal, playerData) {
 
   $scope.roundRobin = function(){
   if ($rootScope.playersArray.length % 2 !== 0){
-    window.alert('Round Robin Tournaments must \nhave an even number of players. \nPlease use the "Add BYE Player" button.');
+    window.alert('Round Robin Tournaments must \nhave an even number of players.' +
+      '\nPlease use the "Add BYE Player" button.');
   } else {
     $rootScope.competitors = [];
     $rootScope.record = [];
@@ -249,7 +251,7 @@ function($scope, $http, $rootScope, $uibModal, playerData) {
   }; // end displayRecords
 
   $scope.sortingHat = function(){
-    $rootScope.competitors.sort(function (left, right) { // sorts by points first
+    $rootScope.competitors.sort(function (left, right) { // sorts by points first then...
       if (left.competitorInfo.points > right.competitorInfo.points) {
         return 1;
       } // end if
@@ -258,7 +260,7 @@ function($scope, $http, $rootScope, $uibModal, playerData) {
       } // end if
       return 0;
     }); // end sort
-    $rootScope.competitors.sort(function (up, down) { // sorts by wins after points have been sorted
+    $rootScope.competitors.sort(function (up, down) { //... sorts by wins after points have been sorted.
       if (up.competitorInfo.wins > down.competitorInfo.wins) {
         return 1;
       } // end if
@@ -270,31 +272,143 @@ function($scope, $http, $rootScope, $uibModal, playerData) {
     return $rootScope.competitors.reverse();
   }; // end sortingHat
 
- $scope.doSomething = function(){
-   var tableRound = angular.element(document.querySelector('#tableDiv'));
-   var roundAttach;
-   var tempArray = [];
-   tempArray = $rootScope.tournament;
+//-------------------------------------------  player Control  -------------------------------------------
 
-   var thingyMehJigger = ' STUFF! ';
+playerData.loadPlayers();
 
-   var numPlayers = $rootScope.playersArray.length;
-   for (var r = 1; r < numPlayers; r++) {
-     var roundNum = r;
-     tableRound.append('<table class="rounds" id="round' + roundNum + '"</table>');
-   }
-  //  for (var m = 1; m < tempArray.length + 1; m++) {
-  //    if ($rootScope.tournament[m-1].roundNum == m) {
-  //     roundAttach = angular.element(document.querySelector('#round' + m));
-  //     roundAttach.append('<tr> <td>{{ contestant.playerOne }}</td> <td> <select ng-model="resultInputOne"ng-change="updateRecord(contestant.playerOne, contestant.playerTwo, contestant.roundNum, resultInputOne)"><option ng-repeat="option in resultCheck.options" value="{{option.point}}"> {{option.select}} </option> </td> <td>{{ contestant.playerTwo }}</td> <td> <select ng-model="resultInputTwo" ng-change="updateRecord(contestant.playerTwo, contestant.playerOne, contestant.roundNum, resultInputTwo)"> <option ng-repeat="option in resultCheck.options" value="{{option.point}}"> {{option.select}} </option> </td> </tr>');
-  //     tempArray.splice(m-1, 1);
-  //    }
-  //  }
- }; // end doSomething
+$scope.nameInput = '';
+$scope.classInput = '';
+$scope.levelInput = '';
 
+$scope.classTypes = ['Archer', 'Assassin', 'Barbarian', 'Bard',
+  'Druid', 'Healer', 'Monk', 'Scout', 'Warrior', 'Wizard', 'Anti-Paladin', 'Paladin'];
+$scope.levelNum = ['Level: 1', 'Level: 2', 'Level: 3', 'Level: 4', 'Level: 5', 'Level: 6'];
+
+$scope.numTeams = {
+  options: [
+    {teams: 2, select: '2'},
+    {teams: 3, select: '3'},
+    {teams: 4, select: '4'},
+]}; // end resultCheck
+
+$scope.addPlayer = function(){
+  var playerInfo = {
+    name: $scope.nameInput,
+    class: $scope.classInput,
+    level: $scope.levelInput
+  }; // end object
+  if(playerInfo.name === '' || undefined || 0){
+      playerInfo.name = playerData.randomId();
+  }
+  if(playerInfo.class === '' || undefined || 0){
+    playerInfo.class = 'Peasant';
+  }
+  if(playerInfo.level === '' || undefined || null || 0){
+    playerInfo.level = 1;
+  }
+  $http({
+    method: 'POST',
+    url: '/playerAdd',
+    data: playerInfo
+  }); // end POST
+  $scope.nameInput = '';
+  $scope.classInput = '';
+  $scope.levelInput = '';
+
+  playerData.loadPlayers();
+}; // end addPlayer function
+
+$scope.deletePlayer = function(index){
+  var playerId = {
+    id: $rootScope.playersArray[index]._id
+  }; // end playerId
+  $http({
+    method: 'POST',
+    url: '/playerRemove',
+    data: playerId
+  }); // end http
+  $rootScope.playersArray.splice(index, 1);
+}; // end deletePlayer
+
+$scope.openUpdate = function(index){
+  $uibModal.open({
+    templateUrl: 'views/pages/updatePlayer.html',
+    controller: 'updateController',
+    size: 'sm',
+    resolve: {
+       playerId: function(){
+         return index;
+       } // end playerID
+     } // end resolve
+  }); // end $modal.open
+}; // end openUpdate
+
+$scope.updatePlayer = function(id){
+  var updateInfo = {
+    id: $rootScope.playersArray[id]._id,
+    name: $scope.nameUpdate,
+    class: $scope.classUpdate,
+    level: $scope.levelUpdate
+  }; // end updateInfo
+
+  if(updateInfo.name === '' || undefined){
+    updateInfo.name = $rootScope.playersArray[id].name;
+  }
+  if(updateInfo.class === '' || undefined){
+    updateInfo.class = $rootScope.playersArray[id].class;
+  }
+  if(updateInfo.level === '' || undefined){
+    updateInfo.level = $rootScope.playersArray[id].level;
+  }
+
+    $http({
+      method: 'POST',
+      url: '/playerUpdate',
+      data: updateInfo
+    }).then(function(response){
+      playerData.loadPlayers();
+      } // end then
+    ); // end http
+  $rootScope.cancel();
+}; // end updatePlayer
+
+$scope.randomPlayer = function(){
+  $scope.randomValue = Math.random() <= 0.5 ? 0 : 1;
+  var playerInfo = {
+    name: $scope.nameInput,
+    class: $scope.classInput,
+    level: $scope.levelInput,
+  }; // end object
+  playerInfo.name = playerData.randomId();
+  playerInfo.class = $scope.classTypes[playerData.randomNum(9,0)];
+  playerInfo.level = playerData.randomNum(6,1);
+  $http({
+    method: 'POST',
+    url: '/playerAdd',
+    data: playerInfo
+  }); // end POST
+  $scope.nameInput = '';
+  $scope.classInput = '';
+  $scope.levelInput = '';
+
+  playerData.loadPlayers();
+}; // end randomPlayer function
+
+$scope.openTeamsModal = function(){
+  $uibModal.open({
+    templateUrl: 'views/pages/teamsView.html',
+    controller: 'tournamentController',
+    size: 'sm'
+  }); // end $modal.open
+}; // end openTeamsModal
+
+// split teams based on class, level, armor, and shield. Reach goal
+$scope.createTeams = function(numberTeams){
+  console.log(numberTeams);
+  $rootScope.cancel();
+};
 
 }]); // end controller 'roundRobinController'
-
 
 //-----------------------------------------  tournamentController -----------------------------------------
 
@@ -303,22 +417,20 @@ function ($scope, $uibModalInstance, $rootScope) {
 
   $rootScope.cancel = function(){
     $uibModalInstance.close();
-    }; // end cancel
-  }); // end updateController
+  }; // end cancel
+}); // end updateController
 
-angular.module('myApp').directive('myTables', function(){
-  return {
-    template: '<tr><td>{{ $rootScope.tournament[1].playerOne }}</td><td> <select ng-model="resultInputOne"ng-change="updateRecord(contestant.playerOne, contestant.playerTwo, contestant.roundNum, resultInputOne)"><option ng-repeat="option in resultCheck.options" value="{{option.point}}"> {{option.select}} </option> </td> <td>{{ contestant.playerTwo }}</td> <td> <select ng-model="resultInputTwo" ng-change="updateRecord(contestant.playerTwo, contestant.playerOne, contestant.roundNum, resultInputTwo)"> <option ng-repeat="option in resultCheck.options" value="{{option.point}}"> {{option.select}} </option> </td> </tr>'
-  		// restrict: "E",
-  		// replace: true,
-  		// template: "<div class='led led-off' ng-class='{ \"led-on\": isOn, \"led-off\": !isOn }' ng-click='onOff()'>{{isOn}}</div>",
-  	// 	link: function(scope, element, attributes, controller)
-  	// 	{
-  	// 		scope.isOn = false;
-    //           scope.onOff = function () {
-    //               scope.isOn = !scope.isOn;
-    //           };
-    //
-  	// 	}
-  	};
-});
+//-------------------------------------------  uodateController  -------------------------------------------
+
+angular.module('myApp').controller('updateController',
+function ($scope, $uibModalInstance, $rootScope, playerId) {
+
+  $rootScope.id = playerId;
+  $scope.nameUpdate = $rootScope.playersArray[playerId].name;
+  $scope.classUpdate = $rootScope.playersArray[playerId].class;
+  $scope.levelUpdate = $rootScope.playersArray[playerId].level;
+
+  $rootScope.cancel = function(){
+    $uibModalInstance.close();
+  }; // end cancel
+}); // end updateController
