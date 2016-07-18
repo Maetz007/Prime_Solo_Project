@@ -1,73 +1,93 @@
-<div class="container-fluid" ng-controller="roundRobinController"><br>
-
-  <div id="header">
-    <button class="basicBtn" ng-click="randomPlayer()"> Random Player </button>
-    <button class="basicBtn" ng-click="getByePlayer()"> Add 'BYE' Player </button><br><br>
-    <!-- <button id="generateTeamsBtn" ng-click=openTeamsModal()> Create Teams </button><br> -->
-  </div> <!-- end header div -->
+<div id="roundRobinBg" ng-controller="roundRobinController"><br>
 
 <div class="boxWrapper">
   <div id="top">
     <div id="playerInputDiv">
-      <input type="text" id="nameIn" ng-model="nameInput" placeholder=" - Name - ">
+      <input type="text" id="nameIn" ng-model="nameInput" placeholder=" Player Name ">
       <select ng-model="classInput" ng-options="class for class in classTypes">
         <option id="classInputBtn" value=''>- Class -</option>
       </select>
       <select id="addPlayerBtn" ng-model="levelInput" ng-options="levels for levels in levelNum">
         <option id="levelInputBtn" value=''>- Level -</option>
-      </select>
-      <button class="basicBtn" ng-click="addPlayer()">Create Player</button>
+      </select><br>
+      <button class="basicBtn" id="playerInputBtn" ng-click="addPlayer()">Create Player</button>
+      <button class="basicBtn" id="playerInputBtn" ng-click="randomPlayer()">Random Player</button>
+      <button class="basicBtn" id="playerInputBtn" ng-click="getByePlayer()">Add 'BYE' Player</button>
     </div>
-    <div ng-repeat="players in playersArray">
-          NAME: {{players.name}}
-          CLASS: {{players.class}}
-          LEVEL: {{players.level}}
-          <div class="playerBtns">
-            <button class="basicBtn" ng-click="openUpdate($index)">UPDATE: {{players.name}}</button>
-            <button class="basicBtn" ng-click="deletePlayer($index)">DELETE: {{players.name}}</button><br>
-          </div>
+    <div id="playerListDiv" ng-repeat="players in playersArray">
+      {{players.name}} > {{players.level}} {{players.class}}
+        <div class="playerBtns">
+          <button class="basicBtn" id="updateBtn" ng-click="openUpdate($index)">Update: {{players.name}}</button>
+          <button class="basicBtn" id="deleteBtn" ng-click="deletePlayer($index)">Delete: {{players.name}}</button><br>
+        </div>
     </div> <!-- end ng-repeat -->
   </div> <!-- end top view -->
 
   <div id="left">
     <div id="tournamentBtns">
-      <button class="basicBtn" ng-click="roundRobin()"> Create New Tournament </button>
-      <button class="basicBtn" ng-click="saveTourneyPopup()"> Save Tournament </button>
-      <button class="basicBtn" ng-click="loadTournamentPopup()"> Load Tournament </button>
-      <button class="basicBtn" ng-click="deleteTourneyPopup()"> Delete Tournament </button><br><br>
+      <button class="basicBtn" id="tournamentInputBtn" ng-click="roundRobin()">Create Tournament</button>
+      <button class="basicBtn" id="tournamentInputBtn" ng-click="saveTourneyPopup()">Save Tournament</button>
+      <button class="basicBtn" id="tournamentInputBtn" ng-click="loadTournamentPopup()">Load Tournament</button>
+      <button class="basicBtn" id="tournamentInputBtn" ng-click="deleteTourneyPopup()">Delete Tournament</button><br>
     </div>
-    <div id="tournamentName"> {{tournamentName}} </div><br>
-    <div id="tournamentTable">
-      <table>
-        <tr ng-repeat="player in competitors">
-          <td>
-            Player: {{player.competitor }}
-            Wins: {{player.competitorInfo.wins }}
-            Losses: {{player.competitorInfo.losses }}
-            Points: {{player.competitorInfo.points }}
-          </td>
-        </tr>
-      </table>
-    </div><br>
+    <div id="tournamentName"> {{tournamentName}} </div>
+      <div id="tournamentTable" ng-repeat="player in competitors">
+        Rank: {{player.competitorInfo.place}} {{player.competitor }}
+        W: {{player.competitorInfo.wins }} / L: {{player.competitorInfo.losses }}
+        Points: {{player.competitorInfo.points }}
+      </div>
   </div> <!-- end left view -->
 </div> <!-- end boxWrapper -->
 
-
   <div id="right">
+    <div id="leftMatches">
+      <table>
+        <tr ng-repeat= "contestant in leftTournament ">
+          <td class="playerOneCell">{{contestant.roundNum}}: {{ contestant.playerOne }}</td>
+          <td class="playerOneCell">
+            <select ng-model="resultInputOne"
+            ng-change="updateRecord(contestant.playerOne, contestant.playerTwo, contestant.roundNum, resultInputOne)">
+              <option ng-repeat="option in resultCheck.options" value="{{option.point}}"> {{option.select}} </option>
+          </td>
+          <td class="playerTwoCell">{{ contestant.playerTwo }}</td>
+          <td class="playerTwoCell">
+            <select ng-model="resultInputTwo"
+            ng-change="updateRecord(contestant.playerTwo, contestant.playerOne, contestant.roundNum, resultInputTwo)">
+              <option ng-repeat="option in resultCheck.options" value="{{option.point}}"> {{option.select}} </option>
+          </td><br>
+        </tr>
+      </table>
+    </div> <!-- leftMatches -->
+    <div id="rightMatches">
+      <table>
+        <tr ng-repeat= "contestant in rightTournament ">
+          <td class="playerOneCell">{{contestant.roundNum}}: {{ contestant.playerOne }}</td>
+          <td class="playerOneCell">
+            <select ng-model="resultInputOne"
+            ng-change="updateRecord(contestant.playerOne, contestant.playerTwo, contestant.roundNum, resultInputOne)">
+              <option ng-repeat="option in resultCheck.options" ng-value="{{option.point}}"> {{option.select}} </option>
+          </td>
+          <td class="playerTwoCell">{{ contestant.playerTwo }}</td>
+          <td class="playerTwoCell">
+            <select ng-model="resultInputTwo"
+            ng-change="updateRecord(contestant.playerTwo, contestant.playerOne, contestant.roundNum, resultInputTwo)">
+              <option ng-repeat="option in resultCheck.options" ng-value="{{option.point}}"> {{option.select}} </option>
+          </td><br>
+        </tr>
+      </table>
+    </div> <!-- rightMatches -->
+  </div> <!-- end right view -->
+
+
+  <!-- <div id="tournamentTable">
     <table>
-      <tr ng-repeat= "contestant in tournament ">
-        <td class="playerOneCell">{{contestant.roundNum}}: {{ contestant.playerOne }}</td>
-        <td class="playerOneCell">
-          <select ng-model="resultInputOne"
-          ng-change="updateRecord(contestant.playerOne, contestant.playerTwo, contestant.roundNum, resultInputOne)">
-            <option ng-repeat="option in resultCheck.options" value="{{option.point}}"> {{option.select}} </option>
+      <tr ng-repeat="player in competitors">
+        <td>
+          Player: {{player.competitor }}
+          Wins: {{player.competitorInfo.wins }}
+          Losses: {{player.competitorInfo.losses }}
+          Points: {{player.competitorInfo.points }}
         </td>
-        <td class="playerTwoCell">{{ contestant.playerTwo }}</td>
-        <td class="playerTwoCell">
-          <select ng-model="resultInputTwo"
-          ng-change="updateRecord(contestant.playerTwo, contestant.playerOne, contestant.roundNum, resultInputTwo)">
-            <option ng-repeat="option in resultCheck.options" value="{{option.point}}"> {{option.select}} </option>
-        </td><br>
       </tr>
     </table>
-  </div> <!-- end right view -->
+  </div><br> -->

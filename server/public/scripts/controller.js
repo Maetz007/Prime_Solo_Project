@@ -11,9 +11,6 @@ myApp.config(['$routeProvider', function($routeProvider){
       .when('/roundRobin', {
           templateUrl: 'views/pages/roundRobin.html',
       })
-      .when('/admin', {
-          templateUrl: '/views/pages/admin.html',
-      })
       .otherwise({
       redirectTo: '/login'
       });
@@ -48,15 +45,6 @@ myApp.factory('playerData', ['$http', '$rootScope', function($http, $rootScope){
       }); // end http GET
   }; // end showPlayers
 
-  var loadDivRounds = function(){
-    var tableRound = angular.element(document.querySelector('#tableDiv'));
-    var numRounds = $rootScope.playersArray.length - 1;
-    for (var r = 0; r < numRounds; r++) {
-      var roundNum = r + 1;
-      tableRound.append('<div class="rounds" id="round' + roundNum + '"> roundDiv </div>');
-    } // end for loop
-  }; // end loadRounds
-
   var randomId = function(){
     var text = [];
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -72,7 +60,6 @@ myApp.factory('playerData', ['$http', '$rootScope', function($http, $rootScope){
   return {
     loadPlayers: getPlayers,
     getTournament: getTournament,
-    loadDivRounds: loadDivRounds,
     randomId: randomId,
     randomNum: randomNum
   };

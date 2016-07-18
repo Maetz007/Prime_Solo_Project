@@ -3,19 +3,32 @@
     width: 100%;
     background-color: #999;
 }
-/*#header {
-    background: #777;
-    height: 150px;
-    top: 0
+
+/*--------------------------------- Login page with register ---------------------------------*/
+
+.navUl {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
 }
 
-#footer {
-    background: #777;
-    height: 150px;
-    bottom: 0
-}*/
-.navBtnDiv {
-  text-align: center;
+.navBtn {
+  float: left;
+}
+
+.navBtn a {
+  display: block;
+  color: white;
+  text-align:
+  center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.navBtn:hover {
+  background-color: #111;
 }
 
 /*--------------------------------- Login page with register ---------------------------------*/
@@ -43,7 +56,6 @@
   background: #444c3c;
   background-image: url("/images/zenbg-3.png"), url("/images/zenbg-4.png");
   background-repeat: repeat-x, repeat;
-  height, width: 275px;
   text-align: center;
   border-radius: 8px;
   box-shadow: 0 10px 14px 0 rgba(0,0,0,0.24),0 12px 24px 0 rgba(0,0,0,0.19);
@@ -57,8 +69,8 @@
   font-size: 18px;
   margin: 4px 2px;
   cursor: pointer;
-  -webkit-transition-duration: 0.4s; /* Safari */
-  transition-duration: 0.4s;
+  -webkit-transition-duration: 0.3s; /* Safari */
+  transition-duration: 0.3s;
 }
 
 .loginRegBtn:hover {
@@ -83,18 +95,73 @@
 
 /*---------------------------------------- main page -----------------------------------------*/
 
+#mainPageDivBg {
+  height: 100vh;
+  width:100%;
+  background: ##878562;
+  background-image: url("/images/zenbg7.png"), url("/images/zenbg8.png");
+  background-repeat: repeat-x, repeat;
+}
 
+#headerForMain {
+  color: white;
+  font-size: 36px;
+  text-align: center;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
 
+#mainPageTextDiv {
+  width: 750px;
+  height: 450px;
+  position: absolute;
+  left:0; right:0;
+  top:0; bottom:0;
+  margin: auto;
+  max-width: 100%;
+  max-height: 100%;
+  overflow: auto;
+  padding: 25px;
+  color: #bfbfbf;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+#mainText {
+  font-size: 18px;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
 
 /*-------------------------------- roundRobin tournament page --------------------------------*/
-#tournamentBtns {
+
+#roundRobinBg {
+  height: 100vh;
+  width:100%;
+  background: #dbe4e1;
+  background-image: url("/images/zenbg5.png"), url("/images/zenbg6.png");
+  background-repeat: repeat-x, repeat;
+}
+
+#tournamentBtns, #nameUpdate {
   text-align: center;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+#playerInputDiv {
+  text-align: center;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+#playerListDiv {
+  text-align: center;
+  text-shadow: 0 5px 7px 0 rgba(0,0,0,0.24),0 12px 24px 0 rgba(0,0,0,0.19);
+  font-size: 15px;
+  font-family: "Comic Sans MS", cursive, sans-serif;
 }
 
 .basicBtn {
   border-radius: 10px;
   border: none;
   text-align: center;
+  font-family: "Comic Sans MS", cursive, sans-serif;
   display: inline-block;
   font-size: 12px;
   margin: 4px 2px;
@@ -108,48 +175,156 @@
 }
 
 .boxWrapper{
-  width: 49%;
+  width: 39%;
   float: left;
 }
 
-#top {
+#top, #left {
   position: relative;
   width: 100%;
-  height: 250px;
-  border: 2px double #999;
+  height: 294px;
+  border: 4px double #999;
+  border-radius: 16px;
   overflow:scroll;
   margin: 5px;
-  background-color: #FCFADD;
-  color:#714D03;
-}
-#playerInputDiv {
-  text-align: center;
-}
-#nameIn {
-  text-align: center;
-  width: 50%;
-  height: 10%;
+  background:rgba(255,155,155,0.15);
 }
 
-#left {
-  position: relative;
-  width: 100%;
-  height: 250px;
-  border: 2px double #999;
-  overflow:scroll;
-  margin: 5px;
-  background-color: #FCFADD;
-  color:#714D03;
+#nameIn {
+  text-align: center;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  width: 50%;
+  height: 10%;
+  background-color: #e6e6e6;
+  padding: 2px;
 }
 
 #right {
   display: inline-block;
   float: right;
-  width: 49%;
-  height: 500px;
-  border: 2px double #999;
+  width: 59%;
+  height: 590px;
   overflow:scroll;
   margin: 8px;
-  background-color: #FCFADD;
-  color:#714D03;
+  background:rgba(255,155,155,0.15);
+  border: 4px double #999;
+  border-radius: 16px;
+}
+
+#leftMatches {
+  position: relative;
+  float: left;
+  width: 50%;
+  height: 590px;
+  padding: 3px;
+  border: 4px double #999;
+  border-radius: 16px;
+  overflow:scroll;
+}
+
+#rightMatches {
+  display: inline-block;
+  float: right;
+  width: 50%;
+  height: 590px;
+  padding: 2px;
+  border: 4px double #999;
+  border-radius: 16px;
+  overflow:scroll;
+}
+
+#tournamentName {
+  text-align: center;
+  font-size: 28px;
+  padding: 4px;
+  font-weight: bold;
+  font-family: Copperplate, "Copperplate Gothic Light", fantasy;
+}
+
+#tournamentTable {
+  text-align: center;
+  font-size: 14px;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+#playerInputBtn {
+  background-color: #0099e6;
+  color: white;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+#tournamentInputBtn {
+  background-color: #ff751a;
+  color: white;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+/*-------------------------------- modals and buttons --------------------------------*/
+
+#saveBtn {
+  background-color: #002db3;
+  color: white;
+}
+
+#createBtn {
+  background-color: #66ccff;
+]  color: black;
+}
+
+#updateBtn {
+  background-color: #339933;
+  color: white;
+}
+
+#loadBtn {
+  background-color: #cccc00;
+  color: white;
+}
+
+#deleteBtn {
+  background-color: #990000;
+  color: white;
+}
+
+#cancelBtn {
+  background-color: #cc9900;
+  color: white;
+}
+
+.modal-header{
+  font-size: 24px;
+  text-align: center;
+  background-color: #808080;
+}
+
+.modal-body {
+  text-align: center;
+  background-color: #bfbfbf;
+}
+
+.modal-footer {
+  background-color: #808080;
+}
+
+#tournamentNameIn {
+  text-align: center;
+}
+
+
+
+
+
+
+
+
+/* ----- end ----- */
+
+#devPopupPic{
+  /*position: absolute;
+  left:0; right:0;
+  top:0; bottom:0;
+  margin: auto;
+  max-width: 100%;
+  max-height: 100%;*/
+  background-image: url("/images/devPopupPic.jpg);
 }

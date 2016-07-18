@@ -1,14 +1,14 @@
 <div ng-controller="roundRobinController">
   <div class="modal-header">
-    <h3 class="modal-title"> Tournament </h3>
+    <h3 class="modal-title"> Save Tournament </h3>
   </div> <!-- end modal-header -->
 
   <div class="modal-body">
-    Click "SAVE" to save '{{tournamentName}}' tournament.
+    Click to save "{{tournamentName}}"
   </div> <!-- end modal-body -->
 
   <div class="modal-footer">
-    <button class="basicBtn" ng-click="saveTournament()">Save</button>
-    <button class="basicBtn" ng-click="cancel()">Cancel</button>
+    <button class="basicBtn" id="saveBtn" ng-click="saveTournament()">Save</button>
+    <button class="basicBtn" id="cancelBtn" ng-click="cancel()">Cancel</button>
   </div> <!-- end modal-footer -->
 </div> <!-- end playersController -->
