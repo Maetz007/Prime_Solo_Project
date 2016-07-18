@@ -11,6 +11,9 @@ myApp.config(['$routeProvider', function($routeProvider){
       .when('/loginFail', {
           templateUrl: '/views/pages/loginFail.html',
       })
+      .when('/registerFail', {
+          templateUrl: '/views/pages/registerFail.html',
+      })
       .when('/roundRobin', {
           templateUrl: 'views/pages/roundRobin.html',
       })

@@ -108,6 +108,18 @@
   top:100px; bottom:0;
 }
 
+#registerFailHeader {
+  text-align: center;
+  font-family: Copperplate, "Copperplate Gothic Light", fantasy;
+  font-size: 28px;
+  color: #800000;
+  font-weight: bold;
+  animation: blinker 0.75s linear 3.0;
+  position: absolute;
+  left:0; right:0;
+  top:; bottom: 50px;
+}
+
 @keyframes blinker {
   50% { opacity: 0.0; }
 }

@@ -216,7 +216,6 @@ function($scope, $http, $rootScope, $uibModal, $window, playerData) {
   }; // end deletePlayer
 
   $scope.updateRecord = function(winner, loser, round, points) {
-    console.log('updateRecord button clicked');
     var winnerPoints, loserPoints, wins, losses, oppPoints;
     if (points == 2) {
       winnerPoints = 3; loserPoints = 0;
@@ -288,11 +287,19 @@ function($scope, $http, $rootScope, $uibModal, $window, playerData) {
 
 
 // fun times, fun times!
-  $scope.devPopup = function(){
+
+  $scope.devPopup1 = function(){
     var x = (screen.width/2)-(300/2);
     var y = (screen.height/2)-(300/2);
     $window.open('/images/devPopupPic.jpg', '', 'width=237, height=283, left='+x+', top='+y);
   };
+
+  $scope.devPopup2 = function(){
+    var x = (screen.width/2)-(300/2);
+    var y = (screen.height/2)-(300/2);
+    $window.open('/images/devArmed.jpg', '', 'width=220, height=283, left='+x+', top='+y);
+  };
+
 
 //-------------------------------------------  player Control  -------------------------------------------
 
@@ -320,8 +327,10 @@ $scope.addPlayer = function(){
       class: $scope.classInput,
       level: $scope.levelInput
     }; // end object
-    if (playerInfo.name === 'Dev'){
-      $scope.devPopup();
+    if (playerInfo.name === 'dev'){
+      $scope.devPopup1();
+    } else if (playerInfo.name === 'Dev'){
+      $scope.devPopup2();
     } else {
     if(playerInfo.name === '' || undefined || 0){
         playerInfo.name = playerData.randomId();

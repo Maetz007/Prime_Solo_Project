@@ -7,7 +7,7 @@ var path = require('path');
 router.post('/registerUser', function(req, res, next) {
     Users.create(req.body, function(err, post) {
          if(err) {
-            next(err);
+            res.redirect('/#/registerFail');
          } else {
             res.redirect('/#/main');
          } // end else
