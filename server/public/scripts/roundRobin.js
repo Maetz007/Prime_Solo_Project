@@ -45,10 +45,8 @@ function($scope, $http, $rootScope, $uibModal, $window, playerData) {
     if ($rootScope.playersArray.length % 2 !== 0) {
       var byeInfo = {
         name: 'BYE',
-        class: 'NONE',
-        level: '0',
-        armor: '0%',
-        shield: 'No'
+        class: 'N/A',
+        level: 'Level 0'
       }; // end object
       $http({
           method: 'POST',
@@ -64,7 +62,7 @@ function($scope, $http, $rootScope, $uibModal, $window, playerData) {
     if ($rootScope.playersArray.length % 2 !== 0){
       window.alert('Round Robin Tournaments must \nhave an even number of players.' +
       '\nPlease use the "Add BYE Player" button.');
-    } else
+    } else {
     $rootScope.competitors = [];
     $rootScope.record = [];
     $rootScope.tournament = [];
@@ -134,6 +132,7 @@ function($scope, $http, $rootScope, $uibModal, $window, playerData) {
         $scope.rightTournament.push($rootScope.tournament[lr-1]);
       } // end else if
     } // end for loop #7
+  } // end else
   }; // end roundRobin
 
   $scope.getTournamentName = function(){

@@ -8,6 +8,9 @@ myApp.config(['$routeProvider', function($routeProvider){
       .when('/login', {
           templateUrl: '/views/pages/login.html',
       })
+      .when('/loginFail', {
+          templateUrl: '/views/pages/loginFail.html',
+      })
       .when('/roundRobin', {
           templateUrl: 'views/pages/roundRobin.html',
       })

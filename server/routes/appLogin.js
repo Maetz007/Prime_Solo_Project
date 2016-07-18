@@ -6,7 +6,7 @@ var path = require('path');
 route.post('/userLogin',
     passport.authenticate('local', {
         successRedirect: '/#/main',
-        failureRedirect: '/'
+        failureRedirect: '/#/loginFail'
     }) // end passport.authenticate
 ); // end userLogin
 
